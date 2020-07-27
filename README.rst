@@ -226,6 +226,7 @@ Usage
         ... except subprocess.CalledProcessError:
         ...     print_exception_message(False)
         ...     print_exception_message(True)
+        ...     print_exception_message(True, stream=sys.stderr)
 
         """
 
@@ -388,10 +389,8 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
-0.0.1
+0.1.0
 -----
-YYYY-MM-DD: <some release name>
-    - change1
-    - change2
-    - ...
+2020-07-27: initial release
+    - initial release
 
