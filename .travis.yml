@@ -13,6 +13,10 @@ env:
         - cPIP="python -m pip"
         # switch off wine fix me messages
         - WINEDEBUG=fixme-all
+        # mypy path
+        - MYPYPATH="./cli_exit_tools/3rd_party_stubs"
+        # package name
+        - PACKAGE_NAME="cli_exit_tools"
         # the registered CLI Command
         - CLI_COMMAND=cli_exit_tools
         # the source file for rst_include (rebuild rst file includes)
