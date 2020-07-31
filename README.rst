@@ -1,4 +1,4 @@
-Version 0.1.1 as of 2020-07-29, see changelog_
+Version 1.1.3 as of 2020-07-31, see changelog_
 
 =======================================================
 
@@ -389,13 +389,8 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
-0.1.1
--------
-2020-07-29: feature release
-    - use the new pizzacutter template
 
-0.1.0
--------
-2020-07-27: initial release
-    - initial release
+1.1.3
+-----
+2020-07-31: initial release
 
