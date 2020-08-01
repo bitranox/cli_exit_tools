@@ -6,7 +6,7 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
-1.1.3
+1.1.4
 -----
 2020-07-31: fix wheels
 
