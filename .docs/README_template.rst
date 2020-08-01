@@ -1,9 +1,8 @@
-Version 1.1.3 as of 2020-07-31, see changelog_
-
-=======================================================
-
 cli_exit_tools
 ==============
+
+Version 1.1.4 as of 2020-08-01, see `Changelog`_.
+
 
 .. include:: ./badges.rst
 
