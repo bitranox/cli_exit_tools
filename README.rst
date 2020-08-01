@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.1.5a0 as of 2020-08-01 see `Changelog`_
+Version v1.1.5 as of 2020-08-01 see `Changelog`_
 
 |travis_build| |license| |jupyter| |pypi|
 
@@ -389,14 +389,9 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
-v1.1.5a0
---------
-2020-07-31: development
-
-v1.1.4
+v1.1.5
 --------
 2020-07-31: fix wheels
-
 
 v1.1.3
 --------
