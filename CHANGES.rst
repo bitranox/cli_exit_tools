@@ -6,6 +6,10 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v1.1.6
+--------
+2020-08-07: fix wheels
+
 v1.1.5
 --------
 2020-07-31: fix wheels
