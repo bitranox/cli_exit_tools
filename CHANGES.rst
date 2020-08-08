@@ -6,6 +6,14 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v1.1.7
+--------
+2020-08-08: service release
+    - fix documentation
+    - fix travis
+    - deprecate pycodestyle
+    - implement flake8
+
 v1.1.6
 --------
 2020-08-07: fix wheels
