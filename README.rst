@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.1.7a0 as of 2020-08-07 see `Changelog`_
+Version v1.1.7 as of 2020-08-08 see `Changelog`_
 
 |travis_build| |license| |jupyter| |pypi|
 
@@ -275,31 +275,19 @@ Installation and Upgrade
 
     python -m pip --upgrade pip
     python -m pip --upgrade setuptools
-    python -m pip --upgrade wheel
 
 - to install the latest release from PyPi via pip (recommended):
 
 .. code-block:: bash
 
-    # install latest release from PyPi
     python -m pip install --upgrade cli_exit_tools
 
-    # test latest release from PyPi without installing (can be skipped)
-    python -m pip install cli_exit_tools --install-option test
-
-- to install the latest development version from github via pip:
+- to install the latest version from github via pip:
 
 
 .. code-block:: bash
 
-    # normal install
     python -m pip install --upgrade git+https://github.com/bitranox/cli_exit_tools.git
-
-    # to test without installing (can be skipped)
-    python -m pip install git+https://github.com/bitranox/cli_exit_tools.git --install-option test
-
-    # to install and upgrade all dependencies regardless of version number
-    python -m pip install --upgrade git+https://github.com/bitranox/cli_exit_tools.git --upgrade-strategy eager
 
 
 - include it into Your requirements.txt:
@@ -317,7 +305,6 @@ Installation and Upgrade
     python -m pip install --upgrade -r /<path>/requirements.txt
 
 
-
 - to install the latest development version from source code:
 
 .. code-block:: bash
@@ -325,11 +312,6 @@ Installation and Upgrade
     # cd ~
     $ git clone https://github.com/bitranox/cli_exit_tools.git
     $ cd cli_exit_tools
-
-    # to test without installing (can be skipped)
-    python setup.py test
-
-    # normal install
     python setup.py install
 
 - via makefile:
@@ -389,9 +371,13 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
-v1.1.7a0
+v1.1.7
 --------
-2020-08-07: development
+2020-08-08: service release
+    - fix documentation
+    - fix travis
+    - deprecate pycodestyle
+    - implement flake8
 
 v1.1.6
 --------

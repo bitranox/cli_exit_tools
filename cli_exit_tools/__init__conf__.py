@@ -1,6 +1,6 @@
 name = 'cli_exit_tools'
 title = 'functions to exit an cli application properly'
-version = 'v1.1.7a0'
+version = 'v1.1.7'
 url = 'https://github.com/bitranox/cli_exit_tools'
 author = 'Robert Nowotny'
 author_email = 'bitranox@gmail.com'
@@ -14,7 +14,7 @@ Info for cli_exit_tools:
 
     functions to exit an cli application properly
 
-    Version : v1.1.7a0
+    Version : v1.1.7
     Url     : https://github.com/bitranox/cli_exit_tools
     Author  : Robert Nowotny
     Email   : bitranox@gmail.com""")
