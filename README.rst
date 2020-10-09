@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.1.7 as of 2020-10-09 see `Changelog`_
+Version v1.1.8 as of 2020-10-09 see `Changelog`_
 
 |travis_build| |license| |jupyter| |pypi|
 
@@ -373,6 +373,11 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+
+v1.1.8
+--------
+2020-10-09: service release
+    - update travis build matrix
 
 v1.1.7
 --------

@@ -6,6 +6,11 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v1.1.8
+--------
+2020-10-09: service release
+    - update travis build matrix
+
 v1.1.7
 --------
 2020-08-08: service release
