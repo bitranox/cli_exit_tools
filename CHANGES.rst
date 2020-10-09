@@ -15,7 +15,7 @@ v1.1.8
 --------
 2020-10-09: service release
     - update travis build matrix for linux 3.9-dev
-    - update travis build matrix for windows 3.9 / 3.10
+    - update travis build matrix (paths) for windows 3.9 / 3.10
 
 v1.1.7
 --------
