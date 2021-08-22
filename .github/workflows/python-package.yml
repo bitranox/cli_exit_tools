@@ -123,6 +123,7 @@ jobs:
               MYPY_DO_TESTS: "True"
 
     steps:
+    - env: ${{matrix.env }}
     # see : https://github.com/actions/checkout
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
