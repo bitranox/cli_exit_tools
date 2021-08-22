@@ -11,7 +11,7 @@ on:
 
 env:
     # prefix before commands - used for wine, there the prefix is "wine"
-    - cPREFIX: ""
+    cPREFIX: ""
     # command to launch python interpreter (its different on macOs, there we need python3)
     cPYTHON: "python"
     # command to launch pip (its different on macOs, there we need pip3)
