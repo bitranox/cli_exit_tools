@@ -101,8 +101,8 @@ def print_exception_message(trace_back: bool = config.traceback, stream: Optiona
     >>> try:
     ...     raise FileNotFoundError('test')
     ... except Exception:       # noqa
-    ...     print_exception_message(False)
-    ...     print_exception_message(True)
+    ...     print_exception_message(False, stream = sys.stdout)
+    ...     print_exception_message(True, stream = sys.stdout)
 
     >>> # test with subprocess to get stdout, stderr
     >>> import subprocess
