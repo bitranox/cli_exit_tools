@@ -108,8 +108,9 @@ jobs:
 
           - os: macos-latest
             python-version: 3.9
-            Test: "test"
+            cTEST2: "cTEST2"
             env:
+              cTEST: "cTEST"
               cPREFIX: ""               # prefix before commands - used for wine, there the prefix is "wine"
               cPYTHON: "python3"        # command to launch python interpreter (its different on macOs, there we need python3)
               cPIP: "python3 -m pip"    # command to launch pip (its different on macOs, there we need pip3)
@@ -132,6 +133,8 @@ jobs:
       # see: https://github.community/t/github-actions-new-bug-unable-to-create-environment-variables-based-matrix/16104/3
       env: ${{matrix.env }}             # make matrix env variables accessible
       run: |
+        echo ${{ env.cTEST }}
+        echo ${{ matrix.cTEST2 }}
         ${{ env.cPIP }} install lib_travis
         log_util --colortest
         lib_travis install
