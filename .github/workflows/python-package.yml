@@ -134,7 +134,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        ${cPIP} install lib_travis
+        ${{ env.cPIP }} install lib_travis
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
