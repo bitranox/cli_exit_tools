@@ -12,7 +12,6 @@ on:
 jobs:
 
   env:
-      cTEST: "AAABuild"
       # prefix before commands - used for wine, there the prefix is "wine"
       cPREFIX: ""
       # command to launch python interpreter (its different on macOs, there we need python3)
