@@ -132,7 +132,7 @@ jobs:
     - name: Install dependencies
       run: |
         echo $cTEST
-        echo ${{ matrix.env.cTEST }}
+        echo $env.cTEST
         echo $cPIP
         ${{ env.cPIP }} install lib_travis
         log_util --colortest
