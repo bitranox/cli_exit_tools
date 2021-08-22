@@ -9,12 +9,6 @@ on:
   pull_request:
     branches: [ master, development ]
 
-env:
-    cTEST: "AAAGlobal"
-
-jobs:
-  build:
-
     env:
         cTEST: "AAABuild"
         # prefix before commands - used for wine, there the prefix is "wine"
@@ -51,6 +45,8 @@ jobs:
         # the target file for rst_include (rebuild rst file includes)
         RST_INCLUDE_TARGET: "./README.rst"
 
+jobs:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -112,9 +108,8 @@ jobs:
           - os: macos-latest
             python-version: 3.9
             env:
-              cTEST: "AAA"
-              cPREFIX: ""                # prefix before commands - used for wine, there the prefix is "wine"
-              cPYTHON: "python3"            # command to launch python interpreter (its different on macOs, there we need python3)
+              cPREFIX: ""               # prefix before commands - used for wine, there the prefix is "wine"
+              cPYTHON: "python3"        # command to launch python interpreter (its different on macOs, there we need python3)
               cPIP: "python3 -m pip"    # command to launch pip (its different on macOs, there we need pip3)
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "False"
@@ -130,11 +125,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      env: ${{matrix.env }}
+      # see: https://github.community/t/github-actions-new-bug-unable-to-create-environment-variables-based-matrix/16104/3
+      env: ${{matrix.env }}             # make matrix env variables accessible
       run: |
-        echo $cTEST
-        echo $env.cTEST
-        echo $cPIP
         ${{ env.cPIP }} install lib_travis
         log_util --colortest
         python -m pip install --upgrade pip
