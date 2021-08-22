@@ -54,8 +54,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        env:
-            cTEST: "AAAMatrix"
         include:
           - os: windows-latest
             python-version: 3.9
