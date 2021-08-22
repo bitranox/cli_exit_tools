@@ -99,7 +99,7 @@ def print_exception_message(trace_back: bool = config.traceback, stream: Optiona
 
     >>> # test with exc_info
     >>> try:
-    ...     raise FileNotFoundError('test')
+    ...     raise FileNotFoundError('unknown_command_test1')
     ... except Exception:       # noqa
     ...     print_exception_message(False, stream = sys.stdout)
     ...     print_exception_message(True, stream = sys.stdout)
@@ -107,7 +107,7 @@ def print_exception_message(trace_back: bool = config.traceback, stream: Optiona
     >>> # test with subprocess to get stdout, stderr
     >>> import subprocess
     >>> try:
-    ...     discard=subprocess.run('unknown_command', shell=True, check=True)
+    ...     discard=subprocess.run('unknown_command_test2', shell=True, check=True)
     ... except subprocess.CalledProcessError:
     ...     print_exception_message(False)
     ...     print_exception_message(True)
