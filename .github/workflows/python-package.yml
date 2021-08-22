@@ -53,12 +53,19 @@ jobs:
         include:
           - os: windows-latest
             python-version: 3.9
-            env:
-              BUILD_DOCS: "False"
-              DEPLOY_SDIST: "False"
-              DEPLOY_WHEEL: "False"
-              DEPLOY_TEST: "False"
-              MYPY_DO_TESTS: "True"
+            run: |
+              export BUILD_DOCS="False"
+              export DEPLOY_SDIST="False"
+              export DEPLOY_WHEEL="False"
+              export DEPLOY_TEST="False"
+              export MYPY_DO_TESTS="True"
+
+            # env:
+            #  BUILD_DOCS: "False"
+            #  DEPLOY_SDIST: "False"
+            #  DEPLOY_WHEEL: "False"
+            #  DEPLOY_TEST: "False"
+            #  MYPY_DO_TESTS: "True"
 
           - os: ubuntu-latest
             python-version: 3.6
@@ -107,15 +114,15 @@ jobs:
 
           - os: macos-latest
             python-version: 3.9
-            env:
-              cPREFIX: ""                # prefix before commands - used for wine, there the prefix is "wine"
-              cPYTHON: "python3"            # command to launch python interpreter (its different on macOs, there we need python3)
-              cPIP: "python3 -m pip"    # command to launch pip (its different on macOs, there we need pip3)
-              BUILD_DOCS: "False"
-              DEPLOY_SDIST: "False"
-              DEPLOY_WHEEL: "False"
-              DEPLOY_TEST: "True"
-              MYPY_DO_TESTS: "True"
+            run: |
+              export cPREFIX=""                # prefix before commands - used for wine, there the prefix is "wine"
+              export cPYTHON="python3"            # command to launch python interpreter (its different on macOs, there we need python3)
+              export cPIP="python3 -m pip"    # command to launch pip (its different on macOs, there we need pip3)
+              export BUILD_DOCS="False"
+              export DEPLOY_SDIST="False"
+              export DEPLOY_WHEEL="False"
+              export DEPLOY_TEST="True"
+              export MYPY_DO_TESTS="True"
 
 
     steps:
@@ -126,8 +133,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      - run: ${cPIP} install lib_travis
-      - run: |
+      run: |
+        ${cPIP} install lib_travis
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
