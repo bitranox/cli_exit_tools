@@ -59,8 +59,8 @@ jobs:
               DEPLOY_WHEEL: "False"
               DEPLOY_TEST: "False"
               MYPY_DO_TESTS: "True"
-              PATH: "/c/Python310:/c/Python310/Scripts:/c/Python39:/c/Python39/Scripts:/c/Python38:/c/Python38/Scripts:env.PATH"
-            run: echo env.PATH
+              PATH: "/c/Python310:/c/Python310/Scripts:/c/Python39:/c/Python39/Scripts:/c/Python38:/c/Python38/Scripts:${{env.PATH}}"
+            run: echo ${{env.PATH}}
 
           - os: ubuntu-latest
             python-version: 3.6
