@@ -111,8 +111,6 @@ jobs:
 
           - os: macos-latest
             python-version: 3.9
-            run: |
-              echo "cPIP=python3" >> $GITHUB_ENV
             env:
               cTEST: "AAA"
               cPREFIX: ""                # prefix before commands - used for wine, there the prefix is "wine"
@@ -124,7 +122,6 @@ jobs:
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
 
-
     steps:
     # see : https://github.com/actions/checkout
     - uses: actions/checkout@v2
@@ -135,7 +132,7 @@ jobs:
     - name: Install dependencies
       run: |
         echo $cTEST
-        echo ${{ env.cTEST }}
+        echo ${{ matrix.env.cTEST }}
         echo $cPIP
         ${{ env.cPIP }} install lib_travis
         log_util --colortest
