@@ -129,6 +129,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        echo $cPIP
         ${{ env.cPIP }} install lib_travis
         log_util --colortest
         python -m pip install --upgrade pip
