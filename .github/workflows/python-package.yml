@@ -146,8 +146,8 @@ jobs:
         ${{matrix.env }}             # make matrix env variables accessible
 
       run: |
-        ${{ enc.cEXPORT }} BRANCH=$(lib_travis get_branch)
-        log_util --level=NOTICE --banner "working on branch ${BRANCH}"
+        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+        log_util --level=NOTICE --banner "working on branch ${{ env.cEXPORT }}"
         lib_travis script
 
     - name: Test with pytest
