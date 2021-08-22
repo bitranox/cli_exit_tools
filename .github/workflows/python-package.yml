@@ -141,9 +141,9 @@ jobs:
     - name: TestScript
       env:
         ${{matrix.env }}             # make matrix env variables accessible
-        BRANCH: $(lib_travis get_branch)
 
       run: |
+        export BRANCH=$(lib_travis get_branch)
         log_util --level=NOTICE --banner "working on branch ${BRANCH}"
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
