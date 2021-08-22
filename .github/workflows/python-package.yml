@@ -110,6 +110,7 @@ jobs:
             run: |
               echo "cPIP=python3" >> $GITHUB_ENV
             env:
+              cTEST: "AAA"
               cPREFIX: ""                # prefix before commands - used for wine, there the prefix is "wine"
               cPYTHON: "python3"            # command to launch python interpreter (its different on macOs, there we need python3)
               cPIP: "python3 -m pip"    # command to launch pip (its different on macOs, there we need pip3)
@@ -129,6 +130,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        echo $cTEST
         echo $cPIP
         ${{ env.cPIP }} install lib_travis
         log_util --colortest
