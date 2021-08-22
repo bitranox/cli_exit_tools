@@ -53,6 +53,13 @@ jobs:
         include:
           - os: windows-latest
             python-version: 3.9
+            env:
+              BUILD_DOCS: "False"
+              DEPLOY_SDIST: "False"
+              DEPLOY_WHEEL: "False"
+              DEPLOY_TEST: "False"
+              MYPY_DO_TESTS: "True"
+              PATH: "/c/Python310:/c/Python310/Scripts:/c/Python39:/c/Python39/Scripts:/c/Python38:/c/Python38/Scripts:env.PATH"
 
           - os: ubuntu-latest
             python-version: 3.6
