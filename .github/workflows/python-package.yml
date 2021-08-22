@@ -15,6 +15,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
+        # export command - "export" on linux, "SET" on Windows
+        cEXPORT: "export"
         # prefix before commands - used for wine, there the prefix is "wine"
         cPREFIX: ""
         # command to launch python interpreter (its different on macOs, there we need python3)
@@ -55,6 +57,7 @@ jobs:
           - os: windows-latest
             python-version: 3.9
             env:
+              cEXPORT: "SET"
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "False"
               DEPLOY_WHEEL: "False"
@@ -143,12 +146,9 @@ jobs:
         ${{matrix.env }}             # make matrix env variables accessible
 
       run: |
-        export BRANCH=$(lib_travis get_branch)
+        ${{ enc.cEXPORT }} BRANCH=$(lib_travis get_branch)
         log_util --level=NOTICE --banner "working on branch ${BRANCH}"
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        lib_travis script
 
     - name: Test with pytest
       run: |
