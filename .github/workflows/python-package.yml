@@ -107,6 +107,9 @@ jobs:
 
           - os: macos-latest
             python-version: 3.9
+            run: |
+              echo "cPYTHON=python3" >> $GITHUB_ENV
+              echo "cPIP=python3 -m pip" >> $GITHUB_ENV
             env:
               cPREFIX: ""                # prefix before commands - used for wine, there the prefix is "wine"
               cPYTHON: "python3"            # command to launch python interpreter (its different on macOs, there we need python3)
