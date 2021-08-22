@@ -147,7 +147,7 @@ jobs:
 
       run: |
         ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
-        log_util --level=NOTICE --banner "working on branch ${{ env.cEXPORT }}"
+        log_util --level=NOTICE --banner "working on branch ${{ env.BRANCH }}"
         lib_travis script
 
     - name: Test with pytest
