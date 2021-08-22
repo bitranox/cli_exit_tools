@@ -108,9 +108,10 @@ jobs:
 
           - os: macos-latest
             python-version: 3.9
-            cTEST2: "cTEST2"
+            run: |
+              export "cTEST=cTEST"
             env:
-              cTEST: "cTEST"
+              # cTEST: "cTEST"
               cPREFIX: ""               # prefix before commands - used for wine, there the prefix is "wine"
               cPYTHON: "python3"        # command to launch python interpreter (its different on macOs, there we need python3)
               cPIP: "python3 -m pip"    # command to launch pip (its different on macOs, there we need pip3)
@@ -134,7 +135,6 @@ jobs:
       env: ${{matrix.env }}             # make matrix env variables accessible
       run: |
         echo ${{ env.cTEST }}
-        echo ${{ matrix.cTEST2 }}
         ${{ env.cPIP }} install lib_travis
         log_util --colortest
         lib_travis install
