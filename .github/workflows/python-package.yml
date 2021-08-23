@@ -159,8 +159,8 @@ jobs:
         ${{ matrix.env }}
 
       run: |
-        log_util --level=NOTICE --banner "working on branch $BRANCH"
-        log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
+        # log_util --level=NOTICE --banner "working on branch $BRANCH"
+        # log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
 
     - name: After Success
