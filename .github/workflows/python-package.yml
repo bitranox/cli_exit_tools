@@ -15,8 +15,6 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-        # export command - "export" on linux, "SET" on Windows
-        cEXPORT: "export"
         # prefix before commands - used for wine, there the prefix is "wine"
         cPREFIX: ""
         # command to launch python interpreter (its different on macOs, there we need python3)
@@ -150,14 +148,12 @@ jobs:
       env:
         # make matrix env variables accessible
         ${{matrix.env }}
-
+      shell: bash
       run: |
         export BRANCH=$(lib_travis get_branch)
         log_util --level=NOTICE --banner "working on branch $BRANCH"
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
-
-      shell: bash
 
     - name: CheckResult
       env:
@@ -166,24 +162,26 @@ jobs:
 
 
       if: ${{ failure() }}
+      shell: bash
       run: |
-        ${{ env.cEXPORT }} TRAVIS_TEST_RESULT=1
+        export TRAVIS_TEST_RESULT=1
 
     - name: After Success
       env:
         ${{matrix.env }}
-
+      shell: bash
       run: |
+        log_util --level=NOTICE --banner "working on branch $BRANCH"
         log_util --level=NOTICE --banner "TRAVIS_TEST_RESULT:  $TRAVIS_TEST_RESULT"
-        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+        export BRANCH=$(lib_travis get_branch)
         lib_travis after_success
 
     - name: Deploy
       env:
         # make matrix env variables accessible
         ${{matrix.env }}
-
+      shell: bash
       run: |
-        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+        export BRANCH=$(lib_travis get_branch)
         lib_travis deploy
         ls -l ./dist
