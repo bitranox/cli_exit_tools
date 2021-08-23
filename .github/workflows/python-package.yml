@@ -173,7 +173,7 @@ jobs:
     - name: Deploy
       env:
         # see: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
-        TRAVIS_TAG: ${{ github.event.release.tag_name }}
+        # TRAVIS_TAG: ${{ github.event.release.tag_name }}
         # ${{ github.event.release.tag_name }}
         # ${{ github.event.release.name }}
         # ${{ github.event.release.body }}
