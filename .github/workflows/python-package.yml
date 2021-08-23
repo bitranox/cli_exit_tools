@@ -159,13 +159,22 @@ jobs:
         export "BRANCH=$(lib_travis get_branch)"
         # export for subsequent steps
         echo "BRANCH=$BRANCH" >> $GITHUB_ENV
-        log_util --level=NOTICE --banner "working on branch $BRANCH"
-        log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
-        log_util --level=VERBOSE --banner "env.GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}"
-        log_util --level=VERBOSE --banner "env.GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}"
-        log_util --level=VERBOSE --banner "env.GITHUB_BASE_REF_SLUG: ${{ env.GITHUB_BASE_REF_SLUG }}"
-        log_util --level=VERBOSE --banner "env.GITHUB_REPOSITORY_SLUG: ${{ env.GITHUB_REPOSITORY_SLUG }}"
-        log_util --level=VERBOSE --banner "github.event_name: ${{ github.event_name }}"
+        log_util --level=NOTICE  "working on branch $BRANCH"
+        log_util --level=NOTICE  "GITHUB_REF $GITHUB_REF"
+        log_util --level=VERBOSE "env.GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}"
+        log_util --level=VERBOSE "env.GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}"
+        log_util --level=VERBOSE "env.GITHUB_BASE_REF_SLUG: ${{ env.GITHUB_BASE_REF_SLUG }}"
+        log_util --level=VERBOSE "env.GITHUB_REPOSITORY_SLUG: ${{ env.GITHUB_REPOSITORY_SLUG }}"
+        log_util --level=VERBOSE "github.base_ref: ${{ github.base_ref }}"
+        log_util --level=VERBOSE "github.event: ${{ github.event }}"
+        log_util --level=VERBOSE "github.event_name: ${{ github.event_name }}"
+        log_util --level=VERBOSE "github.head_ref: ${{ github.head_ref }}"
+        log_util --level=VERBOSE "github.job: ${{ github.job }}"
+        log_util --level=VERBOSE "github.ref: ${{ github.ref }}"
+        log_util --level=VERBOSE "github.repository: ${{ github.repository }}"
+        log_util --level=VERBOSE "github.repository_owner: ${{ github.repository_owner }}"
+        log_util --level=VERBOSE "runner.os: ${{ runner.os }}"
+
         # run the tests
         lib_travis script
 
