@@ -142,7 +142,8 @@ jobs:
 
     - name: TestScript
       env:
-        ${{matrix.env }}             # make matrix env variables accessible
+        # make matrix env variables accessible
+        ${{matrix.env }}
 
       run: |
         ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
@@ -152,7 +153,10 @@ jobs:
 
     - name: After Success
       env:
-        ${{matrix.env }}             # make matrix env variables accessible
+        # make matrix env variables accessible
+        ${{matrix.env }}
+        # make secret available to environment
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
       run: |
         ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
@@ -160,7 +164,8 @@ jobs:
 
     - name: Deploy
       env:
-        ${{matrix.env }}             # make matrix env variables accessible
+        # make matrix env variables accessible
+        ${{matrix.env }}
 
       run: |
         ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
