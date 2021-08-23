@@ -159,7 +159,6 @@ jobs:
 
     - name: After Success
       env:
-        test: "test"
         ${{matrix.env }}
 
       run: |
