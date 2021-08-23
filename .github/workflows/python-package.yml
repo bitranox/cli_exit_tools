@@ -146,6 +146,7 @@ jobs:
 
     - name: TestScript
       env:
+        TRAVIS_TAG: ${{ github.event.release.tag_name }}
         # make matrix env variables accessible
         ${{matrix.env }}
       shell: bash
@@ -158,32 +159,19 @@ jobs:
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
 
-    - name: CheckResult
-      env:
-        # make matrix env variables accessible
-        ${{matrix.env }}
-
-
-      if: ${{ failure() }}
-      shell: bash
-      run: |
-        export TRAVIS_TEST_RESULT=1
-
     - name: After Success
       env:
         ${{matrix.env }}
       shell: bash
       run: |
-        log_util --level=NOTICE --banner "working on branch $BRANCH"
-        log_util --level=NOTICE --banner "TRAVIS_TEST_RESULT:  $TRAVIS_TEST_RESULT"
         lib_travis after_success
 
     - name: Deploy
       env:
+        TRAVIS_TAG: ${{ github.event.release.tag_name }}
         # make matrix env variables accessible
         ${{matrix.env }}
       shell: bash
       run: |
-        export BRANCH=$(lib_travis get_branch)
         lib_travis deploy
         ls -l ./dist
