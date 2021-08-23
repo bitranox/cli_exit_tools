@@ -41,6 +41,7 @@ jobs:
         DO_COVERAGE: "True"
         DO_COVERAGE_UPLOAD_CODECOV: "True"
         DO_COVERAGE_UPLOAD_CODE_CLIMATE: "True"
+        TRAVIS_TEST_RESULT: "0"
 
         # package name
         PACKAGE_NAME: "cli_exit_tools"
@@ -156,12 +157,17 @@ jobs:
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
 
+    - name: Check result
+        if: ${{ failure() }}
+      run: |
+        ${{ env.cEXPORT }} TRAVIS_TEST_RESULT="1"
 
-    - name: After Success
+  - name: After Success
       env:
         ${{matrix.env }}
 
       run: |
+        log_util --level=NOTICE --banner "TRAVIS_TEST_RESULT:  $TRAVIS_TEST_RESULT"
         ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
         lib_travis after_success
 
