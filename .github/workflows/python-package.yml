@@ -153,9 +153,7 @@ jobs:
 
     - name: After Success
       env:
-        # make matrix env variables accessible
         ${{matrix.env }}
-        # make secret available to environment
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
       run: |
