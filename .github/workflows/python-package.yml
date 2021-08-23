@@ -146,7 +146,7 @@ jobs:
 
     - name: TestScript
       env:
-        TRAVIS_TAG: ${{ github.event.release.tag_name }}
+        # TRAVIS_TAG: ${{ github.event.release.tag_name }}
         # export for current step
         # export "BRANCH=$(lib_travis get_branch)"
         # export for subsequent steps
