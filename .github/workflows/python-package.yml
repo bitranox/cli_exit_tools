@@ -151,6 +151,11 @@ jobs:
         ${{matrix.env }}
       shell: bash
 
+      run: |
+        log_util --level=NOTICE --banner "working on branch $BRANCH"
+        log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
+        lib_travis script
+
       # export for current step
       # export "BRANCH=$(lib_travis get_branch)"
       # export for subsequent steps
@@ -159,11 +164,6 @@ jobs:
       # log_util --level=NOTICE --banner "github.event.release.name: ${{ github.event.release.name }}"
       # log_util --level=NOTICE --banner "github.event.release.body: ${{ github.event.release.body }}"
       # log_util --level=NOTICE --banner "github.repository: ${{ github.repository }}"
-
-      run: |
-        log_util --level=NOTICE --banner "working on branch $BRANCH"
-        log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
-        lib_travis script
 
     - name: After Success
       env:
