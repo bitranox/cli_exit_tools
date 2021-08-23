@@ -131,6 +131,9 @@ jobs:
     # see : https://github.com/actions/checkout
     - uses: actions/checkout@v2
 
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v3.x
+
     - name: Setting up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -173,6 +176,8 @@ jobs:
     - name: Deploy
       env:
         # see: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
+        # see : https://github.com/rlespinasse/github-slug-action
+
         # TRAVIS_TAG: ${{ github.event.release.tag_name }}
         # ${{ github.event.release.tag_name }}
         # ${{ github.event.release.name }}
