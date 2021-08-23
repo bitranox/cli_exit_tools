@@ -152,11 +152,15 @@ jobs:
       shell: bash
       run: |
         # export for current step
-        export BRANCH=$(lib_travis get_branch)
+        export "BRANCH=$(lib_travis get_branch)"
         # export for subsequent steps
         echo "BRANCH=$BRANCH" >> $GITHUB_ENV
         log_util --level=NOTICE --banner "working on branch $BRANCH"
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
+        log_util --level=NOTICE --banner "github.event.release.tag_name : ${{ github.event.release.tag_name }}"
+        log_util --level=NOTICE --banner "github.event.release.name: ${{ github.event.release.name }}"
+        log_util --level=NOTICE --banner "github.event.release.body: ${{ github.event.release.body }}"
+        log_util --level=NOTICE --banner "github.repository: ${{ github.repository }}"
         lib_travis script
 
     - name: After Success
@@ -168,7 +172,13 @@ jobs:
 
     - name: Deploy
       env:
+        # see: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
         TRAVIS_TAG: ${{ github.event.release.tag_name }}
+        # ${{ github.event.release.tag_name }}
+        # ${{ github.event.release.name }}
+        # ${{ github.event.release.body }}
+        # ${{ github.repository }}
+
         # make matrix env variables accessible
         ${{matrix.env }}
       shell: bash
