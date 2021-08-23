@@ -93,7 +93,7 @@ def print_exception_message(trace_back: bool = config.traceback, stream: Optiona
     Examples
     --------
 
-
+    >>> assert False
     >>> # test with exc_info = None
     >>> print_exception_message()
 
