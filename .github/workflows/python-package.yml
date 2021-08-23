@@ -120,13 +120,14 @@ jobs:
               DEPLOY_WHEEL: "False"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+
     name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
 
     steps:
     # see : https://github.com/actions/checkout
     - uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Setting up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
@@ -149,6 +150,21 @@ jobs:
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
 
-    - name: Test with pytest
+    - name: After Success
+      env:
+        ${{matrix.env }}             # make matrix env variables accessible
+
       run: |
-        pytest
+        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+        lib_travis after_success
+
+    - name: Deploy
+      env:
+        ${{matrix.env }}             # make matrix env variables accessible
+
+      run: |
+        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+        lib_travis deploy
+        ls -l ./dist
+
+
