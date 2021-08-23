@@ -160,7 +160,7 @@ jobs:
     - name: Check result
         if: ${{ failure() }}
         run: |
-          ${{ env.cEXPORT }} TRAVIS_TEST_RESULT="1"
+          ${{ env.cEXPORT }} TRAVIS_TEST_RESULT=1
 
   - name: After Success
       env:
