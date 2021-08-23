@@ -111,7 +111,7 @@ jobs:
 
           - os: macos-latest
             python-version: 3.9
-            name: "${{ os }} Python ${{ python-version }}"
+            name: "${{ env.os }} Python ${{ env.python-version }}"
             env:
               cPREFIX: ""               # prefix before commands - used for wine, there the prefix is "wine"
               cPYTHON: "python3"        # command to launch python interpreter (its different on macOs, there we need python3)
