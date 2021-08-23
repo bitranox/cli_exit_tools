@@ -152,10 +152,12 @@ jobs:
         ${{matrix.env }}
 
       run: |
-        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+        export BRANCH=$(lib_travis get_branch)
         log_util --level=NOTICE --banner "working on branch $BRANCH"
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
+
+      shell: bash
 
     - name: CheckResult
       env:
