@@ -157,7 +157,7 @@ jobs:
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
 
-    - name: Check result
+    - name: CheckResult
       env:
         # make matrix env variables accessible
         ${{matrix.env }}
