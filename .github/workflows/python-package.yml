@@ -50,6 +50,9 @@ jobs:
         RST_INCLUDE_SOURCE: "./.docs/README_template.rst"
         # the target file for rst_include (rebuild rst file includes)
         RST_INCLUDE_TARGET: "./README.rst"
+        # make Code Coverage Secret available in Environment
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
 
     strategy:
       matrix:
@@ -154,7 +157,6 @@ jobs:
     - name: After Success
       env:
         ${{matrix.env }}
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
       run: |
         ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
