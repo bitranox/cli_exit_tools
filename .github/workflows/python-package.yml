@@ -149,12 +149,11 @@ jobs:
         TRAVIS_TAG: ${{ github.event.release.tag_name }}
         # make matrix env variables accessible
         ${{matrix.env }}
-      shell: bash
-
       run: |
         log_util --level=NOTICE --banner "working on branch $BRANCH"
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
+      shell: bash
 
       # export for current step
       # export "BRANCH=$(lib_travis get_branch)"
