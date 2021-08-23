@@ -52,6 +52,8 @@ jobs:
         RST_INCLUDE_TARGET: "./README.rst"
         # make Code Coverage Secret available in Environment
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        # make PyPi Password available in Environment
+        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 
 
     strategy:
@@ -154,8 +156,10 @@ jobs:
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
 
+
     - name: After Success
       env:
+        test: "test"
         ${{matrix.env }}
 
       run: |
