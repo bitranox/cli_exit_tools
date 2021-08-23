@@ -150,7 +150,10 @@ jobs:
         ${{matrix.env }}
       shell: bash
       run: |
+        # export for current step
         export BRANCH=$(lib_travis get_branch)
+        # export for subsequent steps
+        echo "BRANCH=$BRANCH" >> $GITHUB_ENV
         log_util --level=NOTICE --banner "working on branch $BRANCH"
         log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
         lib_travis script
@@ -173,7 +176,6 @@ jobs:
       run: |
         log_util --level=NOTICE --banner "working on branch $BRANCH"
         log_util --level=NOTICE --banner "TRAVIS_TEST_RESULT:  $TRAVIS_TEST_RESULT"
-        export BRANCH=$(lib_travis get_branch)
         lib_travis after_success
 
     - name: Deploy
