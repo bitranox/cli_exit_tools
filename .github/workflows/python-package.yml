@@ -134,49 +134,53 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Setting up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
-      # see: https://github.community/t/github-actions-new-bug-unable-to-create-environment-variables-based-matrix/16104/3
-      env: ${{ matrix.env }}             # make matrix env variables accessible
-      run: |
-        ${{ env.cPIP }} install lib_travis
-        log_util --colortest
-        lib_travis install
+        # see: https://github.community/t/github-actions-new-bug-unable-to-create-environment-variables-based-matrix/16104/3
+        env: ${{ matrix.env }}             # make matrix env variables accessible
+        run: |
+          ${{ env.cPIP }} install lib_travis
+          log_util --colortest
+          lib_travis install
 
     - name: TestScript
-      env:
-        # make matrix env variables accessible
-        ${{matrix.env }}
+        env:
+          # make matrix env variables accessible
+          ${{matrix.env }}
 
-      run: |
-        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
-        log_util --level=NOTICE --banner "working on branch $BRANCH"
-        log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
-        lib_travis script
+        run: |
+          ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+          log_util --level=NOTICE --banner "working on branch $BRANCH"
+          log_util --level=NOTICE --banner "GITHUB_REF $GITHUB_REF"
+          lib_travis script
 
     - name: Check result
+        env:
+          # make matrix env variables accessible
+          ${{matrix.env }}
+
         if: ${{ failure() }}
         run: |
           ${{ env.cEXPORT }} TRAVIS_TEST_RESULT=1
 
-  - name: After Success
-      env:
-        ${{matrix.env }}
+    - name: After Success
+        env:
+          ${{matrix.env }}
 
-      run: |
-        log_util --level=NOTICE --banner "TRAVIS_TEST_RESULT:  $TRAVIS_TEST_RESULT"
-        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
-        lib_travis after_success
+        run: |
+          log_util --level=NOTICE --banner "TRAVIS_TEST_RESULT:  $TRAVIS_TEST_RESULT"
+          ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+          lib_travis after_success
 
     - name: Deploy
-      env:
-        # make matrix env variables accessible
-        ${{matrix.env }}
+        env:
+          # make matrix env variables accessible
+          ${{matrix.env }}
 
-      run: |
-        ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
-        lib_travis deploy
-        ls -l ./dist
+        run: |
+          ${{ env.cEXPORT }} BRANCH=$(lib_travis get_branch)
+          lib_travis deploy
+          ls -l ./dist
