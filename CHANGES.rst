@@ -6,10 +6,16 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v1.1.9a0
+--------
+Development
+
+
 v1.1.8
 --------
 2020-10-09: service release
-    - update travis build matrix
+    - update travis build matrix for linux 3.9-dev
+    - update travis build matrix (paths) for windows 3.9 / 3.10
 
 v1.1.7
 --------
