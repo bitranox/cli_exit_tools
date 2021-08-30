@@ -14,6 +14,7 @@ on:
     # he prereleased type will not trigger for pre-releases published from draft releases, but the published type will trigger.
     # If you want a workflow to run when stable and pre-releases publish, subscribe to published instead of released and prereleased.
     types: [published]
+
   schedule:
       # * is a special character in YAML, so you have to quote this string
       # | minute | hour (UTC) | day of month (1-31) | month (1-2) | day of week (0-6 or SUN-SAT)
