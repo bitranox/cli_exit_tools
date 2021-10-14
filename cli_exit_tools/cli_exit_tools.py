@@ -35,12 +35,16 @@ def get_system_exit_code(exc: BaseException) -> int:
 
     >>> try:
     ...     raise RuntimeError()
-    ... except RuntimeError as exc:
-    ...     assert get_system_exit_code(exc) == 1
-    ...     setattr(exc, 'winerror', 42)
-    ...     assert get_system_exit_code(exc) == 42
-    ...     setattr(exc, 'winerror', None)
-    ...     assert get_system_exit_code(exc) == 1
+    ... except RuntimeError as my_exc:
+    ...     assert get_system_exit_code(my_exc) == 1
+    ...     setattr(my_exc, 'winerror', 42)
+    ...     assert get_system_exit_code(my_exc) == 42
+    ...     setattr(my_exc, 'winerror', None)
+    ...     assert get_system_exit_code(my_exc) == 1
+    >>> try:
+    ...     exit(99)
+    ... except SystemExit as my_exc:
+    ...     assert get_system_exit_code(my_exc) == 99
 
     """
     # get_system_exit_code}}}
@@ -64,9 +68,16 @@ def get_system_exit_code(exc: BaseException) -> int:
     else:
         exceptions = windows_exceptions
 
+    # Handle SystemExit
+    if isinstance(exc, SystemExit):
+        exit_code = int(exc.args[0])
+        return exit_code
+
+    # Handle all other Exceptions
     for exception in exceptions:
         if isinstance(exc, exception):
             return exceptions[exception]
+
     # this should never happen
     return 1   # pragma: no cover
 
