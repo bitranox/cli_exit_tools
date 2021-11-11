@@ -83,7 +83,7 @@ def get_system_exit_code(exc: BaseException) -> int:
 
 
 # print_exception_message{{{
-def print_exception_message(trace_back: bool = config.traceback, stream: Optional[TextIO] = None) -> None:
+def print_exception_message(trace_back: bool = config.traceback, length_limit: int = 500, stream: Optional[TextIO] = None) -> None:
     """
     Prints the Exception Message to stderr
     if trace_back is True, it also prints the traceback information
@@ -97,6 +97,8 @@ def print_exception_message(trace_back: bool = config.traceback, stream: Optiona
     trace_back
         if traceback information should be printed. This is usually set early
         in the CLI application to the config object via a commandline option.
+    length_limit
+        int, limits the length of the message
     stream
         optional, to which stream to print, default = stderr
 
@@ -111,6 +113,7 @@ def print_exception_message(trace_back: bool = config.traceback, stream: Optiona
     >>> try:
     ...     raise FileNotFoundError('unknown_command_test1')
     ... except Exception:       # noqa
+    ...     print_exception_message(True, length_limit=15)
     ...     print_exception_message(False)
     ...     print_exception_message(True)
 
@@ -137,8 +140,12 @@ def print_exception_message(trace_back: bool = config.traceback, stream: Optiona
         if trace_back:
             print_stdout(exc_info)
             print_stderr(exc_info)
-            exc_info_msg = ''.join(['Traceback Information : \n', str(traceback.format_exc())]).rstrip('\n')
-        print(exc_info_msg, file=stream)
+            # exc_info_msg = ''.join(['Traceback Information : \n', str(traceback.format_exc())]).rstrip('\n')
+            exc_info_msg = f'Traceback Information : \n{traceback.format_exc()}'.rstrip('\n')
+
+        if len(exc_info_msg) > length_limit:
+            exc_info_msg = f'{exc_info_msg[0:length_limit]} ...[TRUNCATED at {length_limit} chr]'
+        print(exc_info_msg[0:length_limit], file=stream)
         flush_streams()
 
 
