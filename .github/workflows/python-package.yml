@@ -179,6 +179,8 @@ jobs:
         log_util --level=VERBOSE "github.repository: ${{ github.repository }}"
         log_util --level=VERBOSE "github.repository_owner: ${{ github.repository_owner }}"
         log_util --level=VERBOSE "runner.os: ${{ runner.os }}"
+        printenv
+
 
         # run the tests
         lib_cicd_github script
