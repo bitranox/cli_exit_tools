@@ -32,6 +32,7 @@ def get_system_exit_code(exc: BaseException) -> int:
     Examples
     --------
 
+
     >>> try:
     ...     raise RuntimeError()
     ... except RuntimeError as my_exc:
