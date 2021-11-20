@@ -125,6 +125,7 @@ def print_exception_message(trace_back: bool = config.traceback, length_limit: i
     ...     print_exception_message(False, stream=sys.stdout)
     ...     print_exception_message(True, stream=sys.stdout)
     ...     print_exception_message(True, stream=sys.stdout)
+    CalledProcessError...
 
     """
     # print_exception_message}}}
