@@ -168,8 +168,8 @@ jobs:
         export "BRANCH=$(lib_cicd_github get_branch)"
         # export for subsequent steps
         echo "BRANCH=$BRANCH" >> $GITHUB_ENV
-        log_util --level=NOTICE  "working on branch $BRANCH"
-        log_util --level=NOTICE  "GITHUB_REF $GITHUB_REF"
+        log_util --level=SPAM  "working on branch $BRANCH"
+        log_util --level=SPAM  "GITHUB_REF $GITHUB_REF"
         log_util --level=VERBOSE "github.base_ref: ${{ github.base_ref }}"
         log_util --level=VERBOSE "github.event: ${{ github.event }}"
         log_util --level=VERBOSE "github.event_name: ${{ github.event_name }}"
