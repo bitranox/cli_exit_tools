@@ -119,7 +119,7 @@ jobs:
               MYPY_DO_TESTS: "True"
 
           - os: ubuntu-latest
-            python-version: 3.10.
+            python-version: 3.10.0
             env:
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "True"
