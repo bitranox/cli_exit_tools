@@ -71,6 +71,7 @@ jobs:
     strategy:
       matrix:
         include:
+          # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-software
           - os: windows-latest
             python-version: 3.9
             env:
@@ -118,7 +119,7 @@ jobs:
               MYPY_DO_TESTS: "True"
 
           - os: ubuntu-latest
-            python-version: 3.10
+            python-version: 3.10.
             env:
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "True"
