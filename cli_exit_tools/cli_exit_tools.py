@@ -112,9 +112,10 @@ def print_exception_message(trace_back: bool = config.traceback, length_limit: i
     >>> try:
     ...     raise FileNotFoundError('unknown_command_test1')
     ... except Exception:       # noqa
-    ...     print_exception_message(True, length_limit=15)
-    ...     print_exception_message(False)
-    ...     print_exception_message(True)
+    ...     print_exception_message(True, length_limit=15, stream=sys.stdout)
+    ...     print_exception_message(False, stream=sys.stdout)
+    ...     print_exception_message(True, stream=sys.stdout)
+    Traceback Info...
 
     >>> # test with subprocess to get stdout, stderr
     >>> import subprocess
