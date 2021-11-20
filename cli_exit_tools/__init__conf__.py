@@ -1,3 +1,5 @@
+# CONF
+
 name = 'cli_exit_tools'
 title = 'functions to exit an cli application properly'
 version = 'v1.1.9a0'

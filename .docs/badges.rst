@@ -4,7 +4,7 @@
 
 
 .. |travis_build| image:: https://img.shields.io/travis/bitranox/cli_exit_tools/master.svg
-   :target: https://travis-ci.org/bitranox/cli_exit_tools
+   :target: https://travis-ci.com/bitranox/cli_exit_tools
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
    :target: http://en.wikipedia.org/wiki/MIT_License

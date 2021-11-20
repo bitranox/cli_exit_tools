@@ -55,9 +55,7 @@ def get_requirements_from_file(requirements_filename: str) -> List[str]:
     """
     l_requirements = list()
     try:
-        with open(
-            str(pathlib.Path(__file__).parent / requirements_filename), mode="r"
-        ) as requirements_file:
+        with open(str(pathlib.Path(__file__).parent / requirements_filename), mode="r") as requirements_file:
             for line in requirements_file:
                 line_data = get_line_data(line)
                 if line_data:
@@ -104,9 +102,7 @@ setup_kwargs["classifiers"] = [
     "Programming Language :: Python",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-setup_kwargs["entry_points"] = {
-    "console_scripts": ["cli_exit_tools = cli_exit_tools.cli_exit_tools_cli:cli_main"]
-}
+setup_kwargs["entry_points"] = {"console_scripts": ["cli_exit_tools = cli_exit_tools.cli_exit_tools_cli:cli_main"]}
 # minimally needs to run tests - no project requirements here
 setup_kwargs["tests_require"] = tests_require
 # specify what a project minimally needs to run correctly

@@ -1,4 +1,4 @@
-.. code-block:: bash
+.. code-block::
 
    Usage: cli_exit_tools [OPTIONS] COMMAND [ARGS]...
 
