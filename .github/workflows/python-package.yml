@@ -158,7 +158,7 @@ jobs:
         log_util --colortest
         lib_cicd_github install
 
-    - name: TestScript
+    - name: Debug Show Environment
       env:
         # make matrix env variables accessible
         ${{ matrix.env }}
@@ -182,6 +182,16 @@ jobs:
         log_util --level=VERBOSE "matrix.python-version: ${{ matrix.python-version }}"
         printenv
 
+    - name: Run Tests
+      env:
+        # make matrix env variables accessible
+        ${{ matrix.env }}
+      shell: bash
+      run: |
+        # export for current step
+        export "BRANCH=$(lib_cicd_github get_branch)"
+        # export for subsequent steps
+        echo "BRANCH=$BRANCH" >> $GITHUB_ENV
         # run the tests
         lib_cicd_github script
 
