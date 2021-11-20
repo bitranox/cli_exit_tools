@@ -152,10 +152,11 @@ jobs:
     - name: Install dependencies
       # see: https://github.community/t/github-actions-new-bug-unable-to-create-environment-variables-based-matrix/16104/3
       env: ${{ matrix.env }}             # make matrix env variables accessible
+      # lib_cicd_github install: upgrades pip, setuptools, wheel and pytest-pycodestyle
       run: |
-        ${{ env.cPIP }} install lib_travis
+        ${{ env.cPIP }} install git+https://github.com/bitranox/lib_cicd_github.git
         log_util --colortest
-        lib_travis install
+        lib_cicd_github install
 
     - name: TestScript
       env:
@@ -164,7 +165,7 @@ jobs:
       shell: bash
       run: |
         # export for current step
-        export "BRANCH=$(lib_travis get_branch)"
+        export "BRANCH=$(lib_cicd_github get_branch)"
         # export for subsequent steps
         echo "BRANCH=$BRANCH" >> $GITHUB_ENV
         log_util --level=NOTICE  "working on branch $BRANCH"
@@ -180,7 +181,7 @@ jobs:
         log_util --level=VERBOSE "runner.os: ${{ runner.os }}"
 
         # run the tests
-        lib_travis script
+        lib_cicd_github script
 
     - name: After Success
       env:
@@ -188,7 +189,7 @@ jobs:
       shell: bash
       continue-on-error: true
       run: |
-        lib_travis after_success
+        lib_cicd_github after_success
 
     - name: Deploy
       env:
@@ -205,5 +206,5 @@ jobs:
         ${{matrix.env }}
       shell: bash
       run: |
-        # lib_travis deploy
+        # lib_cicd_github deploy
         ls -l ./dist
