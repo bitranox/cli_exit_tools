@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.1.9a0 as of 2020-10-09 see `Changelog`_
+Version v1.1.9a0 as of 2021-11-18 see `Changelog`_
 
 |travis_build| |license| |jupyter| |pypi|
 
@@ -10,7 +10,7 @@ Version v1.1.9a0 as of 2020-10-09 see `Changelog`_
 
 
 .. |travis_build| image:: https://img.shields.io/travis/bitranox/cli_exit_tools/master.svg
-   :target: https://travis-ci.org/bitranox/cli_exit_tools
+   :target: https://travis-ci.com/bitranox/cli_exit_tools
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
    :target: http://en.wikipedia.org/wiki/MIT_License
@@ -60,7 +60,7 @@ automated tests, Travis Matrix, Documentation, Badges, etc. are managed with `Pi
 
 Python version required: 3.6.0 or newer
 
-tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.9-dev, pypy3 - architectures: amd64, ppc64le, s390x, arm64
+tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.9, 3.9-dev, pypy3 - architectures: amd64, ppc64le, s390x, arm64
 
 `100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://travis-ci.org/bitranox/cli_exit_tools>`_, automatic daily builds and monitoring
 
@@ -176,12 +176,16 @@ Usage
 
         >>> try:
         ...     raise RuntimeError()
-        ... except RuntimeError as exc:
-        ...     assert get_system_exit_code(exc) == 1
-        ...     setattr(exc, 'winerror', 42)
-        ...     assert get_system_exit_code(exc) == 42
-        ...     setattr(exc, 'winerror', None)
-        ...     assert get_system_exit_code(exc) == 1
+        ... except RuntimeError as my_exc:
+        ...     assert get_system_exit_code(my_exc) == 1
+        ...     setattr(my_exc, 'winerror', 42)
+        ...     assert get_system_exit_code(my_exc) == 42
+        ...     setattr(my_exc, 'winerror', None)
+        ...     assert get_system_exit_code(my_exc) == 1
+        >>> try:
+        ...     exit(99)
+        ... except SystemExit as my_exc:
+        ...     assert get_system_exit_code(my_exc) == 99
 
         """
 
@@ -189,7 +193,7 @@ Usage
 
 .. code-block:: python
 
-    def print_exception_message(trace_back: bool = config.traceback, stream: Optional[TextIO] = None) -> None:
+    def print_exception_message(trace_back: bool = config.traceback, length_limit: int = 500, stream: Optional[TextIO] = None) -> None:
         """
         Prints the Exception Message to stderr
         if trace_back is True, it also prints the traceback information
@@ -203,6 +207,8 @@ Usage
         trace_back
             if traceback information should be printed. This is usually set early
             in the CLI application to the config object via a commandline option.
+        length_limit
+            int, limits the length of the message
         stream
             optional, to which stream to print, default = stderr
 
@@ -210,21 +216,21 @@ Usage
         Examples
         --------
 
-
         >>> # test with exc_info = None
         >>> print_exception_message()
 
         >>> # test with exc_info
         >>> try:
-        ...     raise FileNotFoundError('test')
+        ...     raise FileNotFoundError('unknown_command_test1')
         ... except Exception:       # noqa
+        ...     print_exception_message(True, length_limit=15)
         ...     print_exception_message(False)
         ...     print_exception_message(True)
 
         >>> # test with subprocess to get stdout, stderr
         >>> import subprocess
         >>> try:
-        ...     discard=subprocess.run('unknown_command', shell=True, check=True)
+        ...     discard=subprocess.run('unknown_command_test2', shell=True, check=True)
         ... except subprocess.CalledProcessError:
         ...     print_exception_message(False)
         ...     print_exception_message(True)
@@ -254,7 +260,7 @@ Usage
 Usage from Commandline
 ------------------------
 
-.. code-block:: bash
+.. code-block::
 
    Usage: cli_exit_tools [OPTIONS] COMMAND [ARGS]...
 
@@ -274,28 +280,28 @@ Installation and Upgrade
 - Before You start, its highly recommended to update pip and setup tools:
 
 
-.. code-block:: bash
+.. code-block::
 
     python -m pip --upgrade pip
     python -m pip --upgrade setuptools
 
 - to install the latest release from PyPi via pip (recommended):
 
-.. code-block:: bash
+.. code-block::
 
     python -m pip install --upgrade cli_exit_tools
 
 - to install the latest version from github via pip:
 
 
-.. code-block:: bash
+.. code-block::
 
     python -m pip install --upgrade git+https://github.com/bitranox/cli_exit_tools.git
 
 
 - include it into Your requirements.txt:
 
-.. code-block:: bash
+.. code-block::
 
     # Insert following line in Your requirements.txt:
     # for the latest Release on pypi:
@@ -310,7 +316,7 @@ Installation and Upgrade
 
 - to install the latest development version from source code:
 
-.. code-block:: bash
+.. code-block::
 
     # cd ~
     $ git clone https://github.com/bitranox/cli_exit_tools.git
@@ -347,6 +353,7 @@ following modules will be automatically installed :
 
     ## Project Requirements
     click
+    lib_detect_testenv
 
 Acknowledgements
 ----------------
