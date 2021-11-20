@@ -122,9 +122,9 @@ def print_exception_message(trace_back: bool = config.traceback, length_limit: i
     >>> try:
     ...     discard=subprocess.run('unknown_command_test2', shell=True, check=True)
     ... except subprocess.CalledProcessError:
-    ...     print_exception_message(False)
-    ...     print_exception_message(True)
-    ...     print_exception_message(True, stream=sys.stderr)
+    ...     print_exception_message(False, stream=sys.stdout)
+    ...     print_exception_message(True, stream=sys.stdout)
+    ...     print_exception_message(True, stream=sys.stdout)
 
     """
     # print_exception_message}}}
