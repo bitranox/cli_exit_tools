@@ -165,15 +165,15 @@ jobs:
       # lib_cicd_github install: upgrades pip, setuptools, wheel and pytest-pycodestyle
       run: |
         ${{ env.cPIP }} install git+https://github.com/bitranox/lib_cicd_github.git
-        log_util --colortest
         lib_cicd_github install
 
-    - name: Debug Show Environment
+    - name: Debug - Show Colortest and Environment Variable
       env:
         # make matrix env variables accessible
         ${{ matrix.env }}
       shell: bash
       run: |
+        log_util --colortest
         # export for current step
         export "BRANCH=$(lib_cicd_github get_branch)"
         # export for subsequent steps
