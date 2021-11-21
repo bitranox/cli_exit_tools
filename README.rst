@@ -388,6 +388,7 @@ v1.2.1b
 -------
 work in progress
     - fix minor readme.rst bugs
+    - remove second github action yml
 
 v1.2.0
 ------
