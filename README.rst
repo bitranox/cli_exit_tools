@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.1.9a0 as of 2021-11-18 see `Changelog`_
+Version v1.1.9a0 as of 2021-11-21 see `Changelog`_
 
 |travis_build| |license| |jupyter| |pypi|
 
@@ -173,7 +173,6 @@ Usage
         Examples
         --------
 
-
         >>> try:
         ...     raise RuntimeError()
         ... except RuntimeError as my_exc:
@@ -223,18 +222,20 @@ Usage
         >>> try:
         ...     raise FileNotFoundError('unknown_command_test1')
         ... except Exception:       # noqa
-        ...     print_exception_message(True, length_limit=15)
-        ...     print_exception_message(False)
-        ...     print_exception_message(True)
+        ...     print_exception_message(True, length_limit=15, stream=sys.stdout)
+        ...     print_exception_message(False, stream=sys.stdout)
+        ...     print_exception_message(True, stream=sys.stdout)
+        Traceback Info...
 
         >>> # test with subprocess to get stdout, stderr
         >>> import subprocess
         >>> try:
         ...     discard=subprocess.run('unknown_command_test2', shell=True, check=True)
         ... except subprocess.CalledProcessError:
-        ...     print_exception_message(False)
-        ...     print_exception_message(True)
-        ...     print_exception_message(True, stream=sys.stderr)
+        ...     print_exception_message(False, stream=sys.stdout)
+        ...     print_exception_message(True, stream=sys.stdout)
+        ...     print_exception_message(True, stream=sys.stdout)
+        CalledProcessError...
 
         """
 
