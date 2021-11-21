@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.0 as of 2021-11-21 see `Changelog`_
+Version v1.2.1b as of 2021-11-21 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi|
 
@@ -62,9 +62,9 @@ automated tests, Travis Matrix, Documentation, Badges, etc. are managed with `Pi
 
 Python version required: 3.6.0 or newer
 
-tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.9, 3.9-dev, pypy3 - architectures: amd64, ppc64le, s390x, arm64
+tested on recent linux with python 3.6, 3.7, 3.8, 3.9, 3.10.0, pypy-3.8 - architectures: amd64
 
-`100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://travis-ci.org/bitranox/cli_exit_tools>`_, automatic daily builds and monitoring
+`100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml>`_, automatic daily builds and monitoring
 
 ----
 
@@ -383,6 +383,11 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+
+v1.2.1b
+-------
+work in progress
+    - fix minor readme.rst bugs
 
 v1.2.0
 ------

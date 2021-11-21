@@ -6,6 +6,11 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v1.2.1b
+-------
+work in progress
+    - fix minor readme.rst bugs
+
 v1.2.0
 ------
 2021-11-21: Minor Release
