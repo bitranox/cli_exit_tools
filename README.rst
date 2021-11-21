@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.1.9a0 as of 2021-11-21 see `Changelog`_
+Version v1.2.0 as of 2021-11-21 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi|
 
@@ -384,10 +384,11 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
-v1.1.9a0
---------
-Development
-
+v1.2.0
+------
+2021-11-21: Minor Release
+    - implement github actions
+    - implement system.exit()
 
 v1.1.8
 --------

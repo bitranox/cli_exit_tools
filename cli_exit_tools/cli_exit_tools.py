@@ -55,6 +55,11 @@ def get_system_exit_code(exc: BaseException) -> int:
     windows_exceptions = {FileNotFoundError: 2, PermissionError: 5, ValueError: 13, FileExistsError: 80, TypeError: 87,
                           RuntimeError: 1, BaseException: 1}
 
+    # Handle SystemExit
+    if isinstance(exc, SystemExit):
+        exit_code = int(exc.args[0])
+        return exit_code
+
     if hasattr(exc, 'winerror'):
         try:
             exit_code = int(exc.winerror)    # type: ignore
@@ -66,11 +71,6 @@ def get_system_exit_code(exc: BaseException) -> int:
         exceptions = posix_exceptions
     else:
         exceptions = windows_exceptions
-
-    # Handle SystemExit
-    if isinstance(exc, SystemExit):
-        exit_code = int(exc.args[0])
-        return exit_code
 
     # Handle all other Exceptions
     for exception in exceptions:
