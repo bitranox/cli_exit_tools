@@ -45,14 +45,13 @@ jobs:
 
         # MYPY tests
         MYPY_DO_TESTS: "True"
-        MYPY_OPTIONS: "--follow-imports=normal --implicit-reexport --no-warn-unused-ignores --strict"
+        MYPY_OPTIONS: "--follow-imports=normal --ignore-missing-imports --implicit-reexport --no-warn-unused-ignores --strict"
         MYPYPATH: "./cli_exit_tools/3rd_party_stubs"
 
         # coverage
         DO_COVERAGE: "True"
         DO_COVERAGE_UPLOAD_CODECOV: "True"
         DO_COVERAGE_UPLOAD_CODE_CLIMATE: "True"
-        TRAVIS_TEST_RESULT: "0"
 
         # package name
         PACKAGE_NAME: "cli_exit_tools"
@@ -72,6 +71,7 @@ jobs:
       matrix:
         include:
           # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-software
+
           - os: windows-latest
             python-version: 3.9
             env:
@@ -82,8 +82,9 @@ jobs:
               DEPLOY_TEST: "False"
               MYPY_DO_TESTS: "True"
 
+
           - os: ubuntu-latest
-            python-version: 3.6
+            python-version: "3.6"
             env:
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "True"
@@ -92,7 +93,7 @@ jobs:
               MYPY_DO_TESTS: "True"
 
           - os: ubuntu-latest
-            python-version: 3.7
+            python-version: "3.7"
             env:
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "True"
@@ -101,7 +102,25 @@ jobs:
               MYPY_DO_TESTS: "True"
 
           - os: ubuntu-latest
-            python-version: 3.8
+            python-version: "3.8"
+            env:
+              BUILD_DOCS: "False"
+              DEPLOY_SDIST: "True"
+              DEPLOY_WHEEL: "True"
+              DEPLOY_TEST: "True"
+              MYPY_DO_TESTS: "True"
+
+          - os: ubuntu-latest
+            python-version: "3.9"
+            env:
+              BUILD_DOCS: "False"
+              DEPLOY_SDIST: "True"
+              DEPLOY_WHEEL: "True"
+              DEPLOY_TEST: "True"
+              MYPY_DO_TESTS: "True"
+
+          - os: ubuntu-latest
+            python-version: "3.10.0"
             env:
               BUILD_DOCS: "True"
               DEPLOY_SDIST: "True"
@@ -110,25 +129,7 @@ jobs:
               MYPY_DO_TESTS: "True"
 
           - os: ubuntu-latest
-            python-version: 3.9
-            env:
-              BUILD_DOCS: "False"
-              DEPLOY_SDIST: "True"
-              DEPLOY_WHEEL: "True"
-              DEPLOY_TEST: "True"
-              MYPY_DO_TESTS: "True"
-
-          - os: ubuntu-latest
-            python-version: 3.10.0
-            env:
-              BUILD_DOCS: "False"
-              DEPLOY_SDIST: "True"
-              DEPLOY_WHEEL: "True"
-              DEPLOY_TEST: "True"
-              MYPY_DO_TESTS: "True"
-
-          - os: ubuntu-latest
-            python-version: pypy-3.8
+            python-version: "pypy-3.8"
             env:
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "True"
@@ -147,6 +148,7 @@ jobs:
               DEPLOY_WHEEL: "False"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+
 
     name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
 
@@ -217,13 +219,6 @@ jobs:
       env:
         # see: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
         # see : https://github.com/rlespinasse/github-slug-action
-
-        # TRAVIS_TAG: ${{ github.event.release.tag_name }}
-        # ${{ github.event.release.tag_name }}
-        # ${{ github.event.release.name }}
-        # ${{ github.event.release.body }}
-        # ${{ github.repository }}
-
         # make matrix env variables accessible
         ${{matrix.env }}
       shell: bash
