@@ -6,9 +6,9 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
-v1.2.1b
+v1.2.1
 -------
-work in progress
+2021-11-22: Patch Release
     - fix minor readme.rst bugs
     - remove second github action yml
     - fix "setup.py test"
