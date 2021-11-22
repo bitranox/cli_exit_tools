@@ -191,6 +191,21 @@ function setup_install_venv() {
 }
 
 
+function setup_test_venv() {
+  if test -f "${project_root_dir}/setup.py"; then
+    my_banner "setup.py test on virtual environment"
+    install_clean_virtual_environment
+    cd "${project_root_dir}" || exit
+    if ! ~/venv/bin/python3 "${project_root_dir}/setup.py" test; then
+      my_banner_warning "setup.py test ERROR"
+      beep
+      sleep "${sleeptime_on_error}"
+      return 1
+    fi
+  fi
+}
+
+
 function test_commandline_interface_venv() {
   # this will fail if rotek lib directory is in the path - keep this as a reminder
   my_banner "test commandline interface on virtual environment"

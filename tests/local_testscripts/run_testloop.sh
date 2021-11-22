@@ -13,7 +13,7 @@ project_root_dir="${project_root_dir}"
 DO_FLAKE8_TESTS="True"
 DO_MYPY_TESTS="True"
 DO_PYTEST="True"
-DO_BLACK="False"
+DO_BLACK="True"
 # cleanup on cntrl-c
 trap cleanup EXIT
 
@@ -44,7 +44,7 @@ function pytest_loop {
         fi
 
         # if ! install_pip_requirements_venv; then continue; fi
-        # if ! test_setup_test_venv; then continue; fi
+        if ! setup_test_venv; then continue; fi
         if ! setup_install_venv; then continue; fi
         if ! test_commandline_interface_venv; then continue; fi
 

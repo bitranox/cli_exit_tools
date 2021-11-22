@@ -1,16 +1,17 @@
 # CONF
 
-name = 'cli_exit_tools'
-title = 'functions to exit an cli application properly'
-version = 'v1.2.1b'
-url = 'https://github.com/bitranox/cli_exit_tools'
-author = 'Robert Nowotny'
-author_email = 'bitranox@gmail.com'
-shell_command = 'cli_exit_tools'
+name = "cli_exit_tools"
+title = "functions to exit an cli application properly"
+version = "v1.2.1b"
+url = "https://github.com/bitranox/cli_exit_tools"
+author = "Robert Nowotny"
+author_email = "bitranox@gmail.com"
+shell_command = "cli_exit_tools"
 
 
 def print_info() -> None:
-    print("""\
+    print(
+        """\
 
 Info for cli_exit_tools:
 
@@ -19,4 +20,5 @@ Info for cli_exit_tools:
     Version : v1.2.1b
     Url     : https://github.com/bitranox/cli_exit_tools
     Author  : Robert Nowotny
-    Email   : bitranox@gmail.com""")
+    Email   : bitranox@gmail.com"""
+    )

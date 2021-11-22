@@ -97,7 +97,7 @@ jobs:
             env:
               BUILD_DOCS: "False"
               DEPLOY_SDIST: "True"
-              DEPLOY_WHEEL: "False"
+              DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
 
@@ -144,8 +144,8 @@ jobs:
               cPYTHON: "python3"        # command to launch python interpreter (it's different on macOS, there we need python3)
               cPIP: "python3 -m pip"    # command to launch pip (it's different on macOS, there we need pip3)
               BUILD_DOCS: "False"
-              DEPLOY_SDIST: "False"
-              DEPLOY_WHEEL: "False"
+              DEPLOY_SDIST: "True"
+              DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
 
