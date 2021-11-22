@@ -2,16 +2,16 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.1b as of 2021-11-21 see `Changelog`_
+Version v1.2.1b as of 2021-11-22 see `Changelog`_
 
-|build_badge| |license| |jupyter| |pypi|
+|build_badge| |license| |jupyter| |pypi| |black|
 
 |codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
 
 
-.. |build_badge| image:: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml/badge.svg
-   :target: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml
+.. |build_badge| image:: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml/badge.svg
+   :target: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml
 
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
@@ -64,7 +64,7 @@ Python version required: 3.6.0 or newer
 
 tested on recent linux with python 3.6, 3.7, 3.8, 3.9, 3.10.0, pypy-3.8 - architectures: amd64
 
-`100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml>`_, automatic daily builds and monitoring
+`100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml>`_, automatic daily builds and monitoring
 
 ----
 
@@ -104,15 +104,15 @@ Usage
     import click
 
     # CONSTANTS
-    CLICK_CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+    CLICK_CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
     try:
         from . import __init__conf__
         from . import cli_exit_tools
     except (ImportError, ModuleNotFoundError):  # pragma: no cover
         # imports for doctest
-        import __init__conf__                   # type: ignore  # pragma: no cover
-        import cli_exit_tools                   # type: ignore  # pragma: no cover
+        import __init__conf__  # type: ignore  # pragma: no cover
+        import cli_exit_tools  # type: ignore  # pragma: no cover
 
 
     def info() -> None:
@@ -125,23 +125,23 @@ Usage
 
 
     @click.group(help=__init__conf__.title, context_settings=CLICK_CONTEXT_SETTINGS)
-    @click.version_option(version=__init__conf__.version,
-                          prog_name=__init__conf__.shell_command,
-                          message=f'{__init__conf__.shell_command} version {__init__conf__.version}')
-    @click.option('--traceback/--no-traceback', is_flag=True, type=bool, default=None, help='return traceback information on cli')
+    @click.version_option(
+        version=__init__conf__.version, prog_name=__init__conf__.shell_command, message=f"{__init__conf__.shell_command} version {__init__conf__.version}"
+    )
+    @click.option("--traceback/--no-traceback", is_flag=True, type=bool, default=None, help="return traceback information on cli")
     def cli_main(traceback: Optional[bool] = None) -> None:
         if traceback is not None:
             cli_exit_tools.config.traceback = traceback
 
 
-    @cli_main.command('info', context_settings=CLICK_CONTEXT_SETTINGS)
+    @cli_main.command("info", context_settings=CLICK_CONTEXT_SETTINGS)
     def cli_info() -> None:
-        """ get program informations """
+        """get program informations"""
         info()
 
 
     # entry point if main
-    if __name__ == '__main__':
+    if __name__ == "__main__":
         try:
             cli_main()
         except Exception as exc:
@@ -356,7 +356,7 @@ following modules will be automatically installed :
 
     ## Project Requirements
     click
-    lib_detect_testenv
+    lib_detect_testenv @ git+https://github.com/bitranox/lib_detect_testenv.git
 
 Acknowledgements
 ----------------

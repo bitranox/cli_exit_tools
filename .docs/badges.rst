@@ -1,11 +1,11 @@
-|build_badge| |license| |jupyter| |pypi| 
+|build_badge| |license| |jupyter| |pypi| |black|
 
 |codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
 
 
-.. |build_badge| image:: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml/badge.svg
-   :target: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml
+.. |build_badge| image:: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml/badge.svg
+   :target: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml
 
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
