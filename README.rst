@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.1b as of 2021-11-22 see `Changelog`_
+Version v1.2.1 as of 2021-11-22 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |black|
 
@@ -18,7 +18,7 @@ Version v1.2.1b as of 2021-11-22 see `Changelog`_
    :target: http://en.wikipedia.org/wiki/MIT_License
 
 .. |jupyter| image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/bitranox/cli_exit_tools/master?filepath=cli_exit_tools.ipynb
+   :target: https://mybinder.org/v2/gh/bitranox/cli_exit_tools/master?filepath=cli_exit_tools.ipynb
 
 .. for the pypi status link note the dashes, not the underscore !
 .. |pypi| image:: https://img.shields.io/pypi/status/cli-exit-tools?label=PyPI%20Package
@@ -356,7 +356,7 @@ following modules will be automatically installed :
 
     ## Project Requirements
     click
-    lib_detect_testenv @ git+https://github.com/bitranox/lib_detect_testenv.git
+    lib_detect_testenv
 
 Acknowledgements
 ----------------
@@ -384,11 +384,12 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
-v1.2.1b
+v1.2.1
 -------
-work in progress
+2021-11-22: Patch Release
     - fix minor readme.rst bugs
     - remove second github action yml
+    - fix "setup.py test"
 
 v1.2.0
 ------
