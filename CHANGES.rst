@@ -11,6 +11,7 @@ v1.2.1b
 work in progress
     - fix minor readme.rst bugs
     - remove second github action yml
+    - fix "setup.py test"
 
 v1.2.0
 ------
