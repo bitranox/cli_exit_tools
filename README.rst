@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.1 as of 2021-11-22 see `Changelog`_
+Version v1.2.1 as of 2021-11-24 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |black|
 
