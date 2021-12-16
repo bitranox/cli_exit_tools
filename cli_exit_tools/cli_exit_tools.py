@@ -139,12 +139,11 @@ def print_exception_message(trace_back: bool = config.traceback, length_limit: i
         if trace_back:
             print_stdout(exc_info)
             print_stderr(exc_info)
-            # exc_info_msg = ''.join(['Traceback Information : \n', str(traceback.format_exc())]).rstrip('\n')
             exc_info_msg = f"Traceback Information : \n{traceback.format_exc()}".rstrip("\n")
 
         if len(exc_info_msg) > length_limit:
             exc_info_msg = f"{exc_info_msg[0:length_limit]} ...[TRUNCATED at {length_limit} chr]"
-        print(exc_info_msg[0:length_limit], file=stream)
+        print(exc_info_msg, file=stream)
         flush_streams()
 
 
