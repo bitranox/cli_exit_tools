@@ -2,9 +2,9 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.1 as of 2021-11-24 see `Changelog`_
+Version v1.2.2 as of 2022-03-25 see `Changelog`_
 
-|build_badge| |license| |jupyter| |pypi| |black|
+|build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
 |codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
@@ -47,6 +47,10 @@ Version v1.2.1 as of 2021-11-24 see `Changelog`_
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
+
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/cli-exit-tools
+   :target: https://pypi.org/project/cli-exit-tools/
+   :alt: PyPI - Downloads
 
 small toolset to properly exit a cli application:
 
@@ -383,6 +387,9 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+v1.2.2
+--------
+2022-03-25: fix github actions windows test
 
 v1.2.1
 -------
