@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.2 as of 2022-03-25 see `Changelog`_
+Version v1.2.3 as of 2022-03-29 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
@@ -138,7 +138,7 @@ Usage
             cli_exit_tools.config.traceback = traceback
 
 
-    @cli_main.command("info", context_settings=CLICK_CONTEXT_SETTINGS)
+    @cli_main.command("info", context_settings=CLICK_CONTEXT_SETTINGS)  # type: ignore
     def cli_info() -> None:
         """get program informations"""
         info()
@@ -386,6 +386,11 @@ Changelog
 - new MAJOR version for incompatible API changes,
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
+
+
+v1.2.3
+--------
+2022-03-29: remedy mypy Untyped decorator makes function "cli_info" untyped
 
 v1.2.2
 --------
