@@ -141,7 +141,7 @@ function run_flake8_tests() {
 
 function run_mypy_tests() {
   my_banner "mypy tests"
-  if ! python3 -m mypy "${project_root_dir}" --follow-imports=normal --ignore-missing-imports --implicit-reexport --no-warn-unused-ignores --strict; then
+  if ! python3 -m mypy "${project_root_dir}" --follow-imports=normal --ignore-missing-imports --implicit-reexport --install-types --no-warn-unused-ignores --non-interactive --strict; then
     my_banner_warning "mypy tests ERROR"
     beep
     sleep "${sleeptime_on_error}"
@@ -183,6 +183,21 @@ function setup_install_venv() {
     cd "${project_root_dir}" || exit
     if ! ~/venv/bin/python3 "${project_root_dir}/setup.py" install; then
       my_banner_warning "setup.py install ERROR"
+      beep
+      sleep "${sleeptime_on_error}"
+      return 1
+    fi
+  fi
+}
+
+
+function setup_test_venv() {
+  if test -f "${project_root_dir}/setup.py"; then
+    my_banner "setup.py test on virtual environment"
+    install_clean_virtual_environment
+    cd "${project_root_dir}" || exit
+    if ! ~/venv/bin/python3 "${project_root_dir}/setup.py" test; then
+      my_banner_warning "setup.py test ERROR"
       beep
       sleep "${sleeptime_on_error}"
       return 1

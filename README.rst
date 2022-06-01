@@ -2,23 +2,23 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.0 as of 2021-11-21 see `Changelog`_
+Version v1.2.3.1 as of 2022-06-01 see `Changelog`_
 
-|build_badge| |license| |jupyter| |pypi|
+|build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
 |codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
 
 
-.. |build_badge| image:: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml/badge.svg
-   :target: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-tests.yml
+.. |build_badge| image:: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml/badge.svg
+   :target: https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml
 
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
    :target: http://en.wikipedia.org/wiki/MIT_License
 
 .. |jupyter| image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/bitranox/cli_exit_tools/master?filepath=cli_exit_tools.ipynb
+   :target: https://mybinder.org/v2/gh/bitranox/cli_exit_tools/master?filepath=cli_exit_tools.ipynb
 
 .. for the pypi status link note the dashes, not the underscore !
 .. |pypi| image:: https://img.shields.io/pypi/status/cli-exit-tools?label=PyPI%20Package
@@ -48,6 +48,10 @@ Version v1.2.0 as of 2021-11-21 see `Changelog`_
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
 
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/cli-exit-tools
+   :target: https://pypi.org/project/cli-exit-tools/
+   :alt: PyPI - Downloads
+
 small toolset to properly exit a cli application:
 
 - print the traceback information (can be set with commandline option)
@@ -62,9 +66,9 @@ automated tests, Travis Matrix, Documentation, Badges, etc. are managed with `Pi
 
 Python version required: 3.6.0 or newer
 
-tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.9, 3.9-dev, pypy3 - architectures: amd64, ppc64le, s390x, arm64
+tested on recent linux with python 3.6, 3.7, 3.8, 3.9, 3.10, pypy-3.8 - architectures: amd64
 
-`100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://travis-ci.org/bitranox/cli_exit_tools>`_, automatic daily builds and monitoring
+`100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml>`_, automatic daily builds and monitoring
 
 ----
 
@@ -104,15 +108,15 @@ Usage
     import click
 
     # CONSTANTS
-    CLICK_CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+    CLICK_CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
     try:
         from . import __init__conf__
         from . import cli_exit_tools
     except (ImportError, ModuleNotFoundError):  # pragma: no cover
         # imports for doctest
-        import __init__conf__                   # type: ignore  # pragma: no cover
-        import cli_exit_tools                   # type: ignore  # pragma: no cover
+        import __init__conf__  # type: ignore  # pragma: no cover
+        import cli_exit_tools  # type: ignore  # pragma: no cover
 
 
     def info() -> None:
@@ -125,23 +129,23 @@ Usage
 
 
     @click.group(help=__init__conf__.title, context_settings=CLICK_CONTEXT_SETTINGS)
-    @click.version_option(version=__init__conf__.version,
-                          prog_name=__init__conf__.shell_command,
-                          message=f'{__init__conf__.shell_command} version {__init__conf__.version}')
-    @click.option('--traceback/--no-traceback', is_flag=True, type=bool, default=None, help='return traceback information on cli')
+    @click.version_option(
+        version=__init__conf__.version, prog_name=__init__conf__.shell_command, message=f"{__init__conf__.shell_command} version {__init__conf__.version}"
+    )
+    @click.option("--traceback/--no-traceback", is_flag=True, type=bool, default=None, help="return traceback information on cli")
     def cli_main(traceback: Optional[bool] = None) -> None:
         if traceback is not None:
             cli_exit_tools.config.traceback = traceback
 
 
-    @cli_main.command('info', context_settings=CLICK_CONTEXT_SETTINGS)
+    @cli_main.command("info", context_settings=CLICK_CONTEXT_SETTINGS)  # type: ignore
     def cli_info() -> None:
-        """ get program informations """
+        """get program informations"""
         info()
 
 
     # entry point if main
-    if __name__ == '__main__':
+    if __name__ == "__main__":
         try:
             cli_main()
         except Exception as exc:
@@ -383,6 +387,25 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+
+v1.2.3.1
+--------
+2022-06-01: update github actions test matrix
+
+v1.2.3
+--------
+2022-03-29: remedy mypy Untyped decorator makes function "cli_info" untyped
+
+v1.2.2
+--------
+2022-03-25: fix github actions windows test
+
+v1.2.1
+-------
+2021-11-22: Patch Release
+    - fix minor readme.rst bugs
+    - remove second github action yml
+    - fix "setup.py test"
 
 v1.2.0
 ------

@@ -22,7 +22,7 @@ env:
 
         # MYPY tests
         - MYPY_DO_TESTS="True"
-        - MYPY_OPTIONS="--follow-imports=normal --ignore-missing-imports --implicit-reexport --no-warn-unused-ignores --strict"
+        - MYPY_OPTIONS="--follow-imports=normal --ignore-missing-imports --implicit-reexport --install-types --no-warn-unused-ignores --non-interactive --strict"
         - MYPYPATH="./cli_exit_tools/3rd_party_stubs"
 
         # coverage
@@ -40,8 +40,6 @@ env:
         - RST_INCLUDE_TARGET="./README.rst"
 
         # secure environment variable
-        - secure: "lli+xgHulgSkGk3TQ2TYFzidf06uVRAg+3489rAqLaHKElJ8eMZB/7iqKaqcNshOkHoDjb/AYvg/KAkFNJQlP94Nv3R91znhtRDUtEd+Qp/c4aub0EuZKr9xiMPk2DEIboJupcAElkPIEZ1dg8sSH4R54q3ZVVJkH70SlEf5OB6TUmjZYfp/QlVrMy9rLNBC1XmYUPaK9jWQ0VNBX88eKtQp5G3pK0Fw1PedWECKhuTVYKAJNgtRgkdB2VncoXp7jAbR7jkeUQ5I5TTbCI5ndcLhYcECOEP4iZ5gkSqOd9fIqblLAQxFvXMUAaY+d5esoB93cRub87aTKqPX8fI5h//1y5Fjy9xzdje5xvHWH+bUgcrCV1mC97fYQpwCW4ZepnKpGD5XW7A3VKfWvmWStVdcJiTDOpyQpdAqw4Ii2oUE/CHTgGSCmXqGfk8CmyqpWerF3b1PS7U5WUrni8gJTEXgPWyI6EDj+sSwbYuQaOdgu4NI0JGbHPoXqyTi4Yyfpuk/o3szTmCmG7VD9/Sm9NvA68rJssAVOWm4PS8h3GIGUfpZydf5A4Nrh+P9BS6OBwT6jC87Z5HQgS/YSdz+5Wxv55FF2NnT1zFDtTWmzQe89ZtmjX5PGCmDI4QqZ37CfDZVKyfZYn+3Hy6XrYo5qbPZDEZioScsHbsoLpCQaec="  # CC_TEST_REPORTER_ID.secret
-        - secure: "rFQRs5kkRTuyJgY8ZmIuVhyUBnnUPG3KMcX838qJxAfA8PrVKgfJ3kC6OO5/5RhSmDHFEcEtFcWJSI4Y656p6HNO/a3FKTuVHz4lIiuvVWkDUDUw8EPCdutWRq1hdYqimSl3FY1hDgHuBJkX5/j5V5DpTx3nqUCV02HYRQYej8ShdGf54lLJbgtmDO0TqmbAO6iNGG+OeUWNLM/iFb8JQxZyV2WUVIb4qf7itEGNSTef41idmppfeest17lRQvuc4/Uqh9qgqyX0Z+XgBi4aTT65QSBHiFMXbHr8J3/ma6Gl5CM8cn0jfYLK0yqelN3/oTZsyBxdODIaRe15t0z3y9SnSk7r3aWBWCMV0ExZTUY2h6/yeXJUmHF6O/itu+yVOoIHTMnm3MisrQpTCCsLlTZxAbZ74sUhk42AOEH3wWVyvNICtR7CG5VTlxDmV9ARWUo4NOF6lFDm1GvAaiFbSinluCr4GluPgTxCPywqnCLTfnHU+RmaS2TJk+bUr35iiq72eONgH53izgw2j0/eSrV1VlxthotCgYo8bc8k7o6fq4x+9XNkojhbec5GFcIo5teLicbTTPphXJ1ABObRtsG2GzldWN0FKyND8sci0liTMA3i7BQymgl2HQgJK+2AT9wtmbgV0yDHvbgyH8N594ZHgIjeozveO1+RrIloimM="  # PYPI_PASSWORD.secret
 
 
 
@@ -122,18 +120,6 @@ matrix:
       python: "3.9"
       before_install:
           - export BUILD_DOCS="True"
-          - export DEPLOY_SDIST="True"
-          - export DEPLOY_WHEEL="True"
-          - export BUILD_TEST="True"
-          - export MYPY_DO_TESTS="True"
-
-    - os: linux
-      arch: "amd64"
-      if: true
-      language: python
-      python: "3.9-dev"
-      before_install:
-          - export BUILD_DOCS="False"
           - export DEPLOY_SDIST="True"
           - export DEPLOY_WHEEL="True"
           - export BUILD_TEST="True"

@@ -50,24 +50,22 @@ def get_system_exit_code(exc: BaseException) -> int:
 
     # from https://www.thegeekstuff.com/2010/10/linux-error-codes
     # dict key sorted from most specific to unspecific
-    posix_exceptions = {FileNotFoundError: 2, PermissionError: 13, FileExistsError: 17, TypeError: 22,
-                        ValueError: 22, RuntimeError: 1, BaseException: 1}
-    windows_exceptions = {FileNotFoundError: 2, PermissionError: 5, ValueError: 13, FileExistsError: 80, TypeError: 87,
-                          RuntimeError: 1, BaseException: 1}
+    posix_exceptions = {FileNotFoundError: 2, PermissionError: 13, FileExistsError: 17, TypeError: 22, ValueError: 22, RuntimeError: 1, BaseException: 1}
+    windows_exceptions = {FileNotFoundError: 2, PermissionError: 5, ValueError: 13, FileExistsError: 80, TypeError: 87, RuntimeError: 1, BaseException: 1}
 
     # Handle SystemExit
     if isinstance(exc, SystemExit):
         exit_code = int(exc.args[0])
         return exit_code
 
-    if hasattr(exc, 'winerror'):
+    if hasattr(exc, "winerror"):
         try:
-            exit_code = int(exc.winerror)    # type: ignore
+            exit_code = int(exc.winerror)  # type: ignore
             return exit_code
         except (AttributeError, TypeError):
             pass
 
-    if 'posix' in sys.builtin_module_names:
+    if "posix" in sys.builtin_module_names:
         exceptions = posix_exceptions
     else:
         exceptions = windows_exceptions
@@ -78,7 +76,7 @@ def get_system_exit_code(exc: BaseException) -> int:
             return exceptions[exception]
 
     # this should never happen
-    return 1   # pragma: no cover
+    return 1  # pragma: no cover
 
 
 # print_exception_message{{{
@@ -137,16 +135,15 @@ def print_exception_message(trace_back: bool = config.traceback, length_limit: i
     exc_info = sys.exc_info()[1]
     if exc_info is not None:
         exc_info_type = type(exc_info).__name__
-        exc_info_msg = ''.join([exc_info_type, ': ', str(exc_info.args[0])])
+        exc_info_msg = "".join([exc_info_type, ": ", str(exc_info.args[0])])
         if trace_back:
             print_stdout(exc_info)
             print_stderr(exc_info)
-            # exc_info_msg = ''.join(['Traceback Information : \n', str(traceback.format_exc())]).rstrip('\n')
-            exc_info_msg = f'Traceback Information : \n{traceback.format_exc()}'.rstrip('\n')
+            exc_info_msg = f"Traceback Information : \n{traceback.format_exc()}".rstrip("\n")
 
         if len(exc_info_msg) > length_limit:
-            exc_info_msg = f'{exc_info_msg[0:length_limit]} ...[TRUNCATED at {length_limit} chr]'
-        print(exc_info_msg[0:length_limit], file=stream)
+            exc_info_msg = f"{exc_info_msg[0:length_limit]} ...[TRUNCATED at {length_limit} chr]"
+        print(exc_info_msg, file=stream)
         flush_streams()
 
 
@@ -176,10 +173,10 @@ def print_stdout(exc_info: Any, stream: Optional[TextIO] = None) -> None:
     if stream is None:
         stream = sys.stderr
 
-    if hasattr(exc_info, 'stdout'):
+    if hasattr(exc_info, "stdout"):
         if exc_info.stdout is not None:
             assert isinstance(exc_info.stdout, bytes)
-            print(b'STDOUT: ' + exc_info.stdout, file=stream)
+            print(b"STDOUT: " + exc_info.stdout, file=stream)
 
 
 def print_stderr(exc_info: Any, stream: Optional[TextIO] = None) -> None:
@@ -208,10 +205,10 @@ def print_stderr(exc_info: Any, stream: Optional[TextIO] = None) -> None:
     if stream is None:
         stream = sys.stderr
 
-    if hasattr(exc_info, 'stderr'):
+    if hasattr(exc_info, "stderr"):
         if exc_info.stderr is not None:
             assert isinstance(exc_info.stderr, bytes)
-            print(b'STDERR: ' + exc_info.stderr, file=stream)
+            print(b"STDERR: " + exc_info.stderr, file=stream)
 
 
 # flush_streams{{{
@@ -232,9 +229,9 @@ def flush_streams() -> None:
     # flush_streams}}}
     try:
         sys.stdout.flush()
-    except Exception:   # pragma: no cover
-        pass            # pragma: no cover
+    except Exception:  # pragma: no cover
+        pass  # pragma: no cover
     try:
         sys.stderr.flush()
-    except Exception:   # pragma: no cover
-        pass            # pragma: no cover
+    except Exception:  # pragma: no cover
+        pass  # pragma: no cover
