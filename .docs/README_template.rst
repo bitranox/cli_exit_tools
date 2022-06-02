@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.3.1 as of 2022-06-01 see `Changelog`_
+Version v1.2.3.2 as of 2022-06-02 see `Changelog`_
 
 
 .. include:: ./badges.rst
