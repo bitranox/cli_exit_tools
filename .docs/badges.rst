@@ -1,6 +1,6 @@
 |build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
-|codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
+|codecov| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
 
 
@@ -21,9 +21,6 @@
 .. |codecov| image:: https://img.shields.io/codecov/c/github/bitranox/cli_exit_tools
    :target: https://codecov.io/gh/bitranox/cli_exit_tools
 
-.. |better_code| image:: https://bettercodehub.com/edge/badge/bitranox/cli_exit_tools?branch=master
-   :target: https://bettercodehub.com/results/bitranox/cli_exit_tools
-
 .. |cc_maintain| image:: https://img.shields.io/codeclimate/maintainability-percentage/bitranox/cli_exit_tools?label=CC%20maintainability
    :target: https://codeclimate.com/github/bitranox/cli_exit_tools/maintainability
    :alt: Maintainability
@@ -36,7 +33,7 @@
    :target: https://codeclimate.com/github/bitranox/cli_exit_tools/test_coverage
    :alt: Code Coverage
 
-.. |snyk| image:: https://img.shields.io/snyk/vulnerabilities/github/bitranox/cli_exit_tools
+.. |snyk| image:: https://snyk.io/test/github/bitranox/cli_exit_tools/badge.svg
    :target: https://snyk.io/test/github/bitranox/cli_exit_tools
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg

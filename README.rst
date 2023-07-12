@@ -2,11 +2,11 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.3.2 as of 2022-06-02 see `Changelog`_
+Version v1.2.4 as of 2023-07-12 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
-|codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
+|codecov| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
 
 
@@ -27,9 +27,6 @@ Version v1.2.3.2 as of 2022-06-02 see `Changelog`_
 .. |codecov| image:: https://img.shields.io/codecov/c/github/bitranox/cli_exit_tools
    :target: https://codecov.io/gh/bitranox/cli_exit_tools
 
-.. |better_code| image:: https://bettercodehub.com/edge/badge/bitranox/cli_exit_tools?branch=master
-   :target: https://bettercodehub.com/results/bitranox/cli_exit_tools
-
 .. |cc_maintain| image:: https://img.shields.io/codeclimate/maintainability-percentage/bitranox/cli_exit_tools?label=CC%20maintainability
    :target: https://codeclimate.com/github/bitranox/cli_exit_tools/maintainability
    :alt: Maintainability
@@ -42,7 +39,7 @@ Version v1.2.3.2 as of 2022-06-02 see `Changelog`_
    :target: https://codeclimate.com/github/bitranox/cli_exit_tools/test_coverage
    :alt: Code Coverage
 
-.. |snyk| image:: https://img.shields.io/snyk/vulnerabilities/github/bitranox/cli_exit_tools
+.. |snyk| image:: https://snyk.io/test/github/bitranox/cli_exit_tools/badge.svg
    :target: https://snyk.io/test/github/bitranox/cli_exit_tools
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
@@ -61,14 +58,14 @@ small toolset to properly exit a cli application:
 
 ----
 
-automated tests, Travis Matrix, Documentation, Badges, etc. are managed with `PizzaCutter <https://github
+automated tests, Github Actions, Documentation, Badges, etc. are managed with `PizzaCutter <https://github
 .com/bitranox/PizzaCutter>`_ (cookiecutter on steroids)
 
-Python version required: 3.6.0 or newer
+Python version required: 3.7.0 or newer
 
-tested on recent linux with python 3.6, 3.7, 3.8, 3.9, 3.10, pypy-3.8 - architectures: amd64
+tested on recent linux with python 3.7, 3.8, 3.9, 3.10, 3.11, pypy-3.9 - architectures: amd64
 
-`100% code coverage <https://codecov.io/gh/bitranox/cli_exit_tools>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml>`_, automatic daily builds and monitoring
+`100% code coverage <https://codeclimate.com/github/bitranox/cli_exit_tools/test_coverage>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml>`_, automatic daily builds and monitoring
 
 ----
 
@@ -128,7 +125,7 @@ Usage
         __init__conf__.print_info()
 
 
-    @click.group(help=__init__conf__.title, context_settings=CLICK_CONTEXT_SETTINGS)
+    @click.group(help=__init__conf__.title, context_settings=CLICK_CONTEXT_SETTINGS)    # type: ignore
     @click.version_option(
         version=__init__conf__.version, prog_name=__init__conf__.shell_command, message=f"{__init__conf__.shell_command} version {__init__conf__.version}"
     )
@@ -147,7 +144,7 @@ Usage
     # entry point if main
     if __name__ == "__main__":
         try:
-            cli_main()
+            cli_main()      # type: ignore
         except Exception as exc:
             cli_exit_tools.print_exception_message()
             sys.exit(cli_exit_tools.get_system_exit_code(exc))
@@ -298,6 +295,13 @@ Installation and Upgrade
 
     python -m pip install --upgrade cli_exit_tools
 
+
+- to install the latest release from PyPi via pip, including test dependencies:
+
+.. code-block::
+
+    python -m pip install --upgrade cli_exit_tools[test]
+
 - to install the latest version from github via pip:
 
 
@@ -321,14 +325,14 @@ Installation and Upgrade
     python -m pip install --upgrade -r /<path>/requirements.txt
 
 
-- to install the latest development version from source code:
+- to install the latest development version, including test dependencies from source code:
 
 .. code-block::
 
     # cd ~
     $ git clone https://github.com/bitranox/cli_exit_tools.git
     $ cd cli_exit_tools
-    python setup.py install
+    python -m pip install -e .[test]
 
 - via makefile:
   makefiles are a very convenient way to install. Here we can do much more,
@@ -386,6 +390,19 @@ Changelog
 - new MAJOR version for incompatible API changes,
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
+
+v1.2.4
+---------
+2023-07-12:
+    - introduce PEP517 packaging standard
+    - introduce pyproject.toml build-system
+    - remove mypy.ini
+    - remove pytest.ini
+    - remove setup.cfg
+    - remove setup.py
+    - remove .bettercodehub.yml
+    - remove .travis.yml
+    - update black config
 
 v1.2.3.2
 ---------
