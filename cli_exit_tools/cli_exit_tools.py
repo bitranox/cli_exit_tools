@@ -68,7 +68,7 @@ def get_system_exit_code(exc: BaseException) -> int:
     if "posix" in sys.builtin_module_names:
         exceptions = posix_exceptions
     else:
-        exceptions = windows_exceptions
+        exceptions = windows_exceptions     # pragma: no cover
 
     # Handle all other Exceptions
     for exception in exceptions:
