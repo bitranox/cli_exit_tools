@@ -17,6 +17,7 @@ v1.2.4
     - remove .bettercodehub.yml
     - remove .travis.yml
     - update black config
+    - clean ./tests/test_cli.py
 
 v1.2.3.2
 ---------
