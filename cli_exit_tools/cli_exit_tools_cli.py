@@ -66,11 +66,11 @@ def _set_signal_handlers() -> None:
     signal.signal(signal.SIGINT, _sigint_handler)
 
 
-def _sigint_handler(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
+def _sigint_handler(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Callable[[int, Optional[FrameType]], Any], int, signal.Handlers, None]:
     raise SigIntError
 
 
-def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> Callable[[signal.Signals, FrameType], Any | int | signal.Handlers | None]:
+def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Callable[[int, Optional[FrameType]], Any], int, signal.Handlers, None]:
     raise SigTermError
 
 
