@@ -55,10 +55,10 @@ def _set_signal_handlers() -> None:
     """
     # sigterm handler setzen
     if is_platform_linux:
-        signal.signal(signal.SIGTERM, _sigterm_handler_linux)
+        signal.signal(signal.SIGTERM, _sigterm_handler)
     elif is_platform_windows:
         try:
-            win32api.SetConsoleCtrlHandler(_sigterm_handler_windows, True)
+            win32api.SetConsoleCtrlHandler(_sigterm_handler, True)
         except NameError:  # for install_python_libs_python3.py - at that time pywin32 (win32api) might not be installed
             pass
 
@@ -66,16 +66,11 @@ def _set_signal_handlers() -> None:
     signal.signal(signal.SIGINT, _sigint_handler)
 
 
-def _sigint_handler(_signo: signal.Signals, _stack_frame: FrameType) -> None:
+def _sigint_handler(_signo: int, _stack_frame: Optional[FrameType]) -> None:
     raise SigIntError
 
 
-def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> None:
-    raise SigTermError
-
-
-def _sigterm_handler_windows(_signo: signal.Signals) -> None:
-    # unter Windows kommt kein _stack_frame (positional Argument)
+def _sigterm_handler(_signo: int, _stack_frame: Optional[FrameType]) -> None:
     raise SigTermError
 
 
