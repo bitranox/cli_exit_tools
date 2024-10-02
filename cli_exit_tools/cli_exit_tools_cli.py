@@ -4,6 +4,7 @@ import platform
 import signal
 import sys
 from typing import Any
+from typing import Callable
 from typing import Optional
 from typing import Union
 from types import FrameType
@@ -69,7 +70,7 @@ def _sigint_handler(_signo: signal.Signals, _stack_frame: FrameType) -> Union[An
     raise SigIntError
 
 
-def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
+def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> Callable[[signal.Signals, FrameType], Any | int | signal.Handlers | None]:
     raise SigTermError
 
 
