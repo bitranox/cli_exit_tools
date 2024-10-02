@@ -29,7 +29,7 @@ dependencies = [
     "click",
     "lib_detect_testenv",
 ]
-version = "v1.2.6"
+version = "v1.2.7"
 # seems to be not allowed anymore
 # zip-save = false
 

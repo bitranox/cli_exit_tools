@@ -13,7 +13,7 @@ v1.2.7
     - sigterm_handler for CLI
     - graalpy 24.1 tests
     - CODECOV_TOKEN
-    - refracture
+    - refractor
 
 v1.2.6
 ---------

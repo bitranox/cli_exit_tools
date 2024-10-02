@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.6 as of 2024-10-02 see `Changelog`_
+Version v1.2.7 as of 2024-10-02 see `Changelog`_
 
 |build_badge| |codeql| |license| |jupyter| |pypi|
 |pypi-downloads| |black| |codecov| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
@@ -107,6 +107,7 @@ Usage
     import signal
     import sys
     from typing import Any
+    from typing import Callable
     from typing import Optional
     from typing import Union
     from types import FrameType
@@ -157,10 +158,10 @@ Usage
         """
         # sigterm handler setzen
         if is_platform_linux:
-            signal.signal(signal.SIGTERM, _sigterm_handler_linux)
+            signal.signal(signal.SIGTERM, _sigterm_handler)
         elif is_platform_windows:
             try:
-                win32api.SetConsoleCtrlHandler(_sigterm_handler_windows, True)
+                win32api.SetConsoleCtrlHandler(_sigterm_handler, True)
             except NameError:  # for install_python_libs_python3.py - at that time pywin32 (win32api) might not be installed
                 pass
 
@@ -168,16 +169,11 @@ Usage
         signal.signal(signal.SIGINT, _sigint_handler)
 
 
-    def _sigint_handler(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
+    def _sigint_handler(_signo: int, _stack_frame: Optional[FrameType]) -> None:
         raise SigIntError
 
 
-    def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
-        raise SigTermError
-
-
-    def _sigterm_handler_windows(_signo: signal.Signals) -> None:
-        # unter Windows kommt kein _stack_frame (positional Argument)
+    def _sigterm_handler(_signo: int, _stack_frame: Optional[FrameType]) -> None:
         raise SigTermError
 
 
@@ -450,6 +446,15 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+
+v1.2.7
+---------
+2024-10-02:
+    - setup-python@v5
+    - sigterm_handler for CLI
+    - graalpy 24.1 tests
+    - CODECOV_TOKEN
+    - refractor
 
 v1.2.6
 ---------
