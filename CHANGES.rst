@@ -6,6 +6,15 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v1.2.7
+---------
+2024-10-02:
+    - setup-python@v5
+    - sigterm_handler for CLI
+    - graalpy 24.1 tests
+    - CODECOV_TOKEN
+    - refracture
+
 v1.2.6
 ---------
 2023-07-14:
