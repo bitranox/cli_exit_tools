@@ -2,7 +2,7 @@ cli_exit_tools
 ==============
 
 
-Version v1.2.6 as of 2023-07-14 see `Changelog`_
+Version v1.2.6 as of 2024-10-02 see `Changelog`_
 
 |build_badge| |codeql| |license| |jupyter| |pypi|
 |pypi-downloads| |black| |codecov| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
@@ -26,7 +26,10 @@ Version v1.2.6 as of 2023-07-14 see `Changelog`_
 .. |pypi| image:: https://img.shields.io/pypi/status/cli-exit-tools?label=PyPI%20Package
    :target: https://badge.fury.io/py/cli_exit_tools
 
-.. |codecov| image:: https://img.shields.io/codecov/c/github/bitranox/cli_exit_tools
+.. badge until 2023-10-08:
+.. https://img.shields.io/codecov/c/github/bitranox/cli_exit_tools
+.. badge from 2023-10-08:
+.. |codecov| image:: https://codecov.io/gh/bitranox/cli_exit_tools/graph/badge.svg
    :target: https://codecov.io/gh/bitranox/cli_exit_tools
 
 .. |cc_maintain| image:: https://img.shields.io/codeclimate/maintainability-percentage/bitranox/cli_exit_tools?label=CC%20maintainability
@@ -65,7 +68,7 @@ automated tests, Github Actions, Documentation, Badges, etc. are managed with `P
 
 Python version required: 3.8.0 or newer
 
-tested on recent linux with python 3.8, 3.9, 3.10, 3.11, 3.12-dev, pypy-3.9, pypy-3.10 - architectures: amd64
+tested on recent linux with python 3.8, 3.9, 3.10, 3.11, 3.12, pypy-3.9, pypy-3.10, graalpy-24.1 - architectures: amd64
 
 `100% code coverage <https://codeclimate.com/github/bitranox/cli_exit_tools/test_coverage>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://github.com/bitranox/cli_exit_tools/actions/workflows/python-package.yml>`_, automatic daily builds and monitoring
 
@@ -100,8 +103,13 @@ Usage
 .. code-block:: python
 
     # STDLIB
+    import platform
+    import signal
     import sys
+    from typing import Any
     from typing import Optional
+    from typing import Union
+    from types import FrameType
 
     # EXT
     import click
@@ -116,6 +124,61 @@ Usage
         # imports for doctest
         import __init__conf__  # type: ignore  # pragma: no cover
         import cli_exit_tools  # type: ignore  # pragma: no cover
+
+    is_platform_windows = platform.system().lower() == "windows"
+    is_platform_linux = platform.system().lower() == "linux"
+    is_platform_darwin = platform.system().lower() == "darwin"
+    is_platform_posix = not is_platform_windows
+
+
+    class SigIntError(Exception):
+        """wird bei Signal SigInt ausgelöst"""
+        pass
+
+
+    class SigTermError(Exception):
+        """wird bei Signal SigTerm ausgelöst"""
+        pass
+
+
+    if is_platform_windows:
+        """import win32 api on windows systems"""
+        try:
+            import win32api  # type: ignore # noqa
+        except ModuleNotFoundError:  # for install_python_libs_python3.py - at that time pywin32 (win32api) might not be installed
+            pass
+
+
+    def _set_signal_handlers() -> None:
+        """
+        setzt die signal handler so, das entsprechende Exceptions geraised werden.
+        Dies dient dazu ein sauberes Handling für Cleanup in den Applikationen
+        zu gewährleisten
+        """
+        # sigterm handler setzen
+        if is_platform_linux:
+            signal.signal(signal.SIGTERM, _sigterm_handler_linux)
+        elif is_platform_windows:
+            try:
+                win32api.SetConsoleCtrlHandler(_sigterm_handler_windows, True)
+            except NameError:  # for install_python_libs_python3.py - at that time pywin32 (win32api) might not be installed
+                pass
+
+        # sigint handler setzen
+        signal.signal(signal.SIGINT, _sigint_handler)
+
+
+    def _sigint_handler(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
+        raise SigIntError
+
+
+    def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
+        raise SigTermError
+
+
+    def _sigterm_handler_windows(_signo: signal.Signals) -> None:
+        # unter Windows kommt kein _stack_frame (positional Argument)
+        raise SigTermError
 
 
     def info() -> None:
@@ -139,13 +202,14 @@ Usage
 
     @cli_main.command("info", context_settings=CLICK_CONTEXT_SETTINGS)  # type: ignore
     def cli_info() -> None:
-        """get program informations"""
+        """get program information"""
         info()
 
 
     # entry point if main
     if __name__ == "__main__":
         try:
+            _set_signal_handlers()
             cli_main()      # type: ignore
         except Exception as exc:
             cli_exit_tools.print_exception_message()
@@ -159,7 +223,7 @@ Usage
 
     def get_system_exit_code(exc: BaseException) -> int:
         """
-        Return the exit code for linux or windows os, based on the exception.
+        Return the exit code for linux or Windows os, based on the exception.
         If, on windows, the winerror code is passed with the Exception, we return that winerror code.
 
 
@@ -199,23 +263,17 @@ Usage
 
     def print_exception_message(trace_back: bool = config.traceback, length_limit: int = 500, stream: Optional[TextIO] = None) -> None:
         """
-        Prints the Exception Message to stderr
-        if trace_back is True, it also prints the traceback information
+        Prints the Exception Message to stderr. If trace_back is True, it also prints the traceback information.
+        If the exception has stdout, stderr attributes (like subprocess.CalledProcessError), those will also be printed.
 
-        if the exception has stdout, stderr attributes (like the subprocess.CalledProcessError)
-        those will be also printed to stderr
-
-
-        Parameter
-        ---------
-        trace_back
-            if traceback information should be printed. This is usually set early
-            in the CLI application to the config object via a commandline option.
-        length_limit
-            int, limits the length of the message
-        stream
-            optional, to which stream to print, default = stderr
-
+        Parameters
+        ----------
+        trace_back : bool, optional
+            Whether to print traceback information. Default is False.
+        length_limit : int, optional
+            Maximum length of the exception message to be printed. Default is 500.
+        stream : Optional[TextIO], optional
+            The stream to print to. Default is sys.stderr.
 
         Examples
         --------
@@ -278,18 +336,17 @@ Usage from Commandline
      -h, --help                    Show this message and exit.
 
    Commands:
-     info  get program informations
+     info  get program information
 
 Installation and Upgrade
 ------------------------
 
-- Before You start, its highly recommended to update pip and setup tools:
+- Before You start, its highly recommended to update pip:
 
 
 .. code-block::
 
     python -m pip --upgrade pip
-    python -m pip --upgrade setuptools
 
 - to install the latest release from PyPi via pip (recommended):
 

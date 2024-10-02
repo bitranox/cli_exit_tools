@@ -1,7 +1,12 @@
 # example{{{
 # STDLIB
+import platform
+import signal
 import sys
+from typing import Any
 from typing import Optional
+from typing import Union
+from types import FrameType
 
 # EXT
 import click
@@ -16,6 +21,61 @@ except (ImportError, ModuleNotFoundError):  # pragma: no cover
     # imports for doctest
     import __init__conf__  # type: ignore  # pragma: no cover
     import cli_exit_tools  # type: ignore  # pragma: no cover
+
+is_platform_windows = platform.system().lower() == "windows"
+is_platform_linux = platform.system().lower() == "linux"
+is_platform_darwin = platform.system().lower() == "darwin"
+is_platform_posix = not is_platform_windows
+
+
+class SigIntError(Exception):
+    """wird bei Signal SigInt ausgelöst"""
+    pass
+
+
+class SigTermError(Exception):
+    """wird bei Signal SigTerm ausgelöst"""
+    pass
+
+
+if is_platform_windows:
+    """import win32 api on windows systems"""
+    try:
+        import win32api  # type: ignore # noqa
+    except ModuleNotFoundError:  # for install_python_libs_python3.py - at that time pywin32 (win32api) might not be installed
+        pass
+
+
+def _set_signal_handlers() -> None:
+    """
+    setzt die signal handler so, das entsprechende Exceptions geraised werden.
+    Dies dient dazu ein sauberes Handling für Cleanup in den Applikationen
+    zu gewährleisten
+    """
+    # sigterm handler setzen
+    if is_platform_linux:
+        signal.signal(signal.SIGTERM, _sigterm_handler_linux)
+    elif is_platform_windows:
+        try:
+            win32api.SetConsoleCtrlHandler(_sigterm_handler_windows, True)
+        except NameError:  # for install_python_libs_python3.py - at that time pywin32 (win32api) might not be installed
+            pass
+
+    # sigint handler setzen
+    signal.signal(signal.SIGINT, _sigint_handler)
+
+
+def _sigint_handler(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
+    raise SigIntError
+
+
+def _sigterm_handler_linux(_signo: signal.Signals, _stack_frame: FrameType) -> Union[Any, int, signal.Handlers, None]:
+    raise SigTermError
+
+
+def _sigterm_handler_windows(_signo: signal.Signals) -> None:
+    # unter Windows kommt kein _stack_frame (positional Argument)
+    raise SigTermError
 
 
 def info() -> None:
@@ -39,13 +99,14 @@ def cli_main(traceback: Optional[bool] = None) -> None:
 
 @cli_main.command("info", context_settings=CLICK_CONTEXT_SETTINGS)  # type: ignore
 def cli_info() -> None:
-    """get program informations"""
+    """get program information"""
     info()
 
 
 # entry point if main
 if __name__ == "__main__":
     try:
+        _set_signal_handlers()
         cli_main()      # type: ignore
     except Exception as exc:
         cli_exit_tools.print_exception_message()

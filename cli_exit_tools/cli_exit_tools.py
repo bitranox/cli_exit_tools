@@ -13,7 +13,7 @@ config = _Config()
 # get_system_exit_code{{{
 def get_system_exit_code(exc: BaseException) -> int:
     """
-    Return the exit code for linux or windows os, based on the exception.
+    Return the exit code for linux or Windows os, based on the exception.
     If, on windows, the winerror code is passed with the Exception, we return that winerror code.
 
 
@@ -82,23 +82,17 @@ def get_system_exit_code(exc: BaseException) -> int:
 # print_exception_message{{{
 def print_exception_message(trace_back: bool = config.traceback, length_limit: int = 500, stream: Optional[TextIO] = None) -> None:
     """
-    Prints the Exception Message to stderr
-    if trace_back is True, it also prints the traceback information
+    Prints the Exception Message to stderr. If trace_back is True, it also prints the traceback information.
+    If the exception has stdout, stderr attributes (like subprocess.CalledProcessError), those will also be printed.
 
-    if the exception has stdout, stderr attributes (like the subprocess.CalledProcessError)
-    those will be also printed to stderr
-
-
-    Parameter
-    ---------
-    trace_back
-        if traceback information should be printed. This is usually set early
-        in the CLI application to the config object via a commandline option.
-    length_limit
-        int, limits the length of the message
-    stream
-        optional, to which stream to print, default = stderr
-
+    Parameters
+    ----------
+    trace_back : bool, optional
+        Whether to print traceback information. Default is False.
+    length_limit : int, optional
+        Maximum length of the exception message to be printed. Default is 500.
+    stream : Optional[TextIO], optional
+        The stream to print to. Default is sys.stderr.
 
     Examples
     --------
@@ -127,88 +121,86 @@ def print_exception_message(trace_back: bool = config.traceback, length_limit: i
 
     """
     # print_exception_message}}}
-
     flush_streams()
+
     if stream is None:
         stream = sys.stderr
 
-    exc_info = sys.exc_info()[1]
+    exc_info = sys.exc_info()[1]  # Get the current exception
     if exc_info is not None:
         exc_info_type = type(exc_info).__name__
-        exc_info_msg = "".join([exc_info_type, ": ", str(exc_info.args[0])])
-        if trace_back:
-            print_stdout(exc_info)
-            print_stderr(exc_info)
-            exc_info_msg = f"Traceback Information : \n{traceback.format_exc()}".rstrip("\n")
+        exc_info_msg = f"{exc_info_type}: {str(exc_info)}"
 
+        # Print traceback if trace_back is True
+        if trace_back:
+            exc_info_msg = f"Traceback Information:\n{traceback.format_exc()}"
+
+        # If message exceeds length limit, truncate it
         if len(exc_info_msg) > length_limit:
-            exc_info_msg = f"{exc_info_msg[0:length_limit]} ...[TRUNCATED at {length_limit} chr]"
+            exc_info_msg = f"{exc_info_msg[:length_limit]} ...[TRUNCATED at {length_limit} characters]"
+
+        # Print stdout/stderr if they exist in the exception
+        _print_output(exc_info, "stdout", stream)
+        _print_output(exc_info, "stderr", stream)
+
+        # Print the exception message
         print(exc_info_msg, file=stream)
         flush_streams()
 
 
-def print_stdout(exc_info: Any, stream: Optional[TextIO] = None) -> None:
+def _print_output(exc_info: Any, attr: str, stream: Optional[TextIO] = None) -> None:
     """
-    if the exc_info has stdout attribute (like the subprocess.CalledProcessError)
-    that will be printed to stderr
+    Helper function to print an attribute (stdout, stderr) of the exc_info if it exists.
+
+    Parameters
+    ----------
+    exc_info : Any
+        The exception object that may contain stdout or stderr.
+    attr : str
+        The attribute name ('stdout' or 'stderr').
+    stream : Optional[TextIO]
+        The stream to print to. Default is sys.stderr.
 
     >>> class ExcInfo(object):
     ...    pass
 
-    >>> exc_info = ExcInfo()
+    >>> my_exc_info = ExcInfo()
 
     >>> # test no stdout attribute
-    >>> print_stdout(exc_info)
+    >>> _print_output(my_exc_info, 'stdout')
 
     >>> # test stdout=None
-    >>> exc_info.stdout=None
-    >>> print_stdout(exc_info)
+    >>> my_exc_info.stdout=None
+    >>> _print_output(my_exc_info, 'stdout')
 
     >>> # test stdout
-    >>> exc_info.stdout=b'test'
-    >>> print_stdout(exc_info, stream=sys.stdout)
-    b'STDOUT: test'
+    >>> my_exc_info.stdout=b'test'
+    >>> _print_output(my_exc_info, 'stdout', stream=sys.stdout)
+    STDOUT: test
+
+    >>> my_exc_info = ExcInfo()
+
+    >>> # test no stderr attribute
+    >>> _print_output(my_exc_info, 'stderr')
+
+    >>> # test stderr=None
+    >>> my_exc_info.stderr=None
+    >>> _print_output(my_exc_info, 'stderr')
+
+    >>> # test stderr
+    >>> my_exc_info.stderr=b'test'
+    >>> _print_output(my_exc_info, 'stderr', stream=sys.stdout)
+    STDERR: test
 
     """
     if stream is None:
         stream = sys.stderr
 
-    if hasattr(exc_info, "stdout"):
-        if exc_info.stdout is not None:
-            assert isinstance(exc_info.stdout, bytes)
-            print(b"STDOUT: " + exc_info.stdout, file=stream)
-
-
-def print_stderr(exc_info: Any, stream: Optional[TextIO] = None) -> None:
-    """
-    if the exc_info has stderr attribute (like the subprocess.CalledProcessError)
-    that will be printed to stderr
-
-    >>> class ExcInfo(object):
-    ...    pass
-
-    >>> exc_info = ExcInfo()
-
-    >>> # test no stdout attribute
-    >>> print_stderr(exc_info)
-
-    >>> # test stdout=None
-    >>> exc_info.stderr=None
-    >>> print_stderr(exc_info)
-
-    >>> # test stdout
-    >>> exc_info.stderr=b'test'
-    >>> print_stderr(exc_info, stream=sys.stdout)
-    b'STDERR: test'
-
-    """
-    if stream is None:
-        stream = sys.stderr
-
-    if hasattr(exc_info, "stderr"):
-        if exc_info.stderr is not None:
-            assert isinstance(exc_info.stderr, bytes)
-            print(b"STDERR: " + exc_info.stderr, file=stream)
+    if hasattr(exc_info, attr):
+        output = getattr(exc_info, attr)
+        if output is not None:
+            assert isinstance(output, bytes), f"{attr} must be of type bytes"
+            print(f"{attr.upper()}: {output.decode()}", file=stream)
 
 
 # flush_streams{{{

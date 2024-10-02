@@ -20,7 +20,10 @@
 .. |pypi| image:: https://img.shields.io/pypi/status/cli-exit-tools?label=PyPI%20Package
    :target: https://badge.fury.io/py/cli_exit_tools
 
-.. |codecov| image:: https://img.shields.io/codecov/c/github/bitranox/cli_exit_tools
+.. badge until 2023-10-08:
+.. https://img.shields.io/codecov/c/github/bitranox/cli_exit_tools
+.. badge from 2023-10-08:
+.. |codecov| image:: https://codecov.io/gh/bitranox/cli_exit_tools/graph/badge.svg
    :target: https://codecov.io/gh/bitranox/cli_exit_tools
 
 .. |cc_maintain| image:: https://img.shields.io/codeclimate/maintainability-percentage/bitranox/cli_exit_tools?label=CC%20maintainability
