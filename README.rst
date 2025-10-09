@@ -450,7 +450,7 @@ Changelog
 v1.2.7
 ---------
 2024-10-02:
-    - setup-python@v5
+    - setup-python@v6
     - sigterm_handler for CLI
     - graalpy 24.1 tests
     - CODECOV_TOKEN
@@ -486,7 +486,7 @@ v1.2.4
 
 v1.2.3.2
 ---------
-2022-06-02: update to github actions checkout@v3 and setup-python@v3
+2022-06-02: update to github actions checkout@v3 and setup-python@v6
 
 v1.2.3.1
 --------
